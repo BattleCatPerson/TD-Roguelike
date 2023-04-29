@@ -75,10 +75,13 @@ public class CarvePath : MonoBehaviour
         Vector2Int currentPositon = new(x, y);
 
         grid[currentPositon.x, currentPositon.y].gameObject.SetActive(false);
+        grid[currentPositon.x, currentPositon.y].GetComponent<TowerTile>().enabled = false;
+
         while (currentPositon != new Vector2(x2, y2))
         {
             currentPositon += ReturnCloserDirection(currentPositon, x2, y2);
             grid[currentPositon.x, currentPositon.y].gameObject.SetActive(false);
+            grid[currentPositon.x, currentPositon.y].GetComponent<TowerTile>().enabled = false;
             print(currentPositon);
         }
     }
