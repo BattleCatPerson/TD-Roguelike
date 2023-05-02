@@ -1402,7 +1402,7 @@ MonoBehaviour:
   - {fileID: 1856167361}
   - {fileID: 2127822510}
   - {fileID: 1606500156}
-  numberOfInterestPoints: 3
+  numberOfInterestPoints: 10
   interestPoints: []
 --- !u!114 &994688454 stripped
 MonoBehaviour:
