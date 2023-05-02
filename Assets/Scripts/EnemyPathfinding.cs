@@ -7,6 +7,7 @@ public class EnemyPathfinding : MonoBehaviour
     [SerializeField] List<Transform> path;
     [SerializeField] int pathIndex;
     [SerializeField] float moveSpeed;
+    [SerializeField] Transform currentDestination;
     void Start()
     {
         path = new();
@@ -21,6 +22,8 @@ public class EnemyPathfinding : MonoBehaviour
     public void MoveTowardsCurrentPoint()
     {
         if (pathIndex >= path.Count) return;
+        currentDestination = path[pathIndex];
+
         if (Vector3.Distance(transform.position, path[pathIndex].position) < 0.01f)
         {
             pathIndex++;

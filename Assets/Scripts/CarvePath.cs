@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class CarvePath : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class CarvePath : MonoBehaviour
     [SerializeField] int seed;
     [SerializeField] List<GridRow> rows;
     [SerializeField] int numberOfInterestPoints;
-    [SerializeField] List<Vector2Int> interestPoints;
+    [SerializeField] List<Transform> interestPoints;
     private int size;
     void Awake()
     {
@@ -61,11 +62,14 @@ public class CarvePath : MonoBehaviour
 
         for (int i = 0; i < numberOfInterestPoints; i++)
         {
-            Vector2Int interestPoint = new(UnityEngine.Random.Range(1, size), UnityEngine.Random.Range(1, size));
-            interestPoints.Add(interestPoint);
+            Vector2Int interestPoint = new(UnityEngine.Random.Range(1, size - 1), UnityEngine.Random.Range(1, size - 1));
+            interestPoints.Add(grid[interestPoint.y, interestPoint.x]);
             current = GeneratePath(current, interestPoint);
         }
+
         GeneratePath(current, destination);
+
+
     }
 
     void Update()
@@ -76,26 +80,35 @@ public class CarvePath : MonoBehaviour
 
     public Vector2Int GeneratePath(Vector2Int currentPosition, Vector2Int destination)
     {
-        path.Add(grid[currentPosition.x, currentPosition.y]);
-        grid[currentPosition.x, currentPosition.y].GetComponent<MeshRenderer>().enabled = false;
-        grid[currentPosition.x, currentPosition.y].GetComponent<TowerTile>().enabled = false;
+        path.Add(grid[currentPosition.y, currentPosition.x]);
+        Path.Add(grid[currentPosition.y, currentPosition.x]);
 
+        grid[currentPosition.y, currentPosition.x].GetComponent<MeshRenderer>().enabled = false;
+        grid[currentPosition.y, currentPosition.x].GetComponent<TowerTile>().enabled = false;
         while (currentPosition != destination)
         {
             currentPosition += ReturnCloserDirection(currentPosition, destination);
-            print(currentPosition.x + " " + currentPosition.y);
-            path.Add(grid[currentPosition.x, currentPosition.y]);
-            grid[currentPosition.x, currentPosition.y].GetComponent<MeshRenderer>().enabled = false;
-            grid[currentPosition.x, currentPosition.y].GetComponent<TowerTile>().enabled = false;
+            if (currentPosition.x >= size || currentPosition.y >= size) break;
+            path.Add(grid[currentPosition.y, currentPosition.x]);
+            Path.Add(grid[currentPosition.y, currentPosition.x]);
+            grid[currentPosition.y, currentPosition.x].GetComponent<MeshRenderer>().enabled = false;
+            grid[currentPosition.y, currentPosition.x].GetComponent<TowerTile>().enabled = false;
         }
-        Path.AddRange(path);
         return destination;
     }
 
     public Vector2Int ReturnCloserDirection(Vector2Int current, Vector2Int destination)
     {
-        if (Math.Abs(destination.x - current.x) >= Math.Abs(destination.y - current.y)) return Vector2Int.right;
-        return Vector2Int.up;
+        if (Math.Abs(destination.x - current.x) >= Math.Abs(destination.y - current.y))
+        {
+            Vector2Int dir = destination.x - current.x > 0 ? Vector2Int.right : Vector2Int.left;
+            return dir;
+        }
+        else
+        {
+            Vector2Int dir = destination.y - current.y > 0 ? Vector2Int.up : Vector2Int.down;
+            return dir;
+        }
     }
     public void AddTileToList(List<Transform> t) => tiles.AddRange(t);
 }
