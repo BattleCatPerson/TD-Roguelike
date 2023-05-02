@@ -10,17 +10,19 @@ public class CarvePath : MonoBehaviour
     [SerializeField] Transform startPosition;
     [SerializeField] Transform endPosition;
     [SerializeField] List<Transform> path;
+    public static List<Transform> Path;
     [SerializeField] int seed;
     [SerializeField] List<GridRow> rows;
     private int size;
-    void Start()
+    void Awake()
     {
         foreach (GridRow g in rows) AddTileToList(g.tiles);
         if (seed == 0) seed = (int)DateTime.Now.Ticks;
         UnityEngine.Random.InitState(seed);
         size = (int) Math.Sqrt(tiles.Count);
         grid = new Transform[size, size];
-        path = new List<Transform>();
+        path = new();
+        Path = new();
 
         GeneratePath();
     }
@@ -74,16 +76,20 @@ public class CarvePath : MonoBehaviour
 
         Vector2Int currentPositon = new(x, y);
 
-        grid[currentPositon.x, currentPositon.y].gameObject.SetActive(false);
+        path.Add(grid[currentPositon.x, currentPositon.y]); 
+        grid[currentPositon.x, currentPositon.y].GetComponent<MeshRenderer>().enabled = false;
         grid[currentPositon.x, currentPositon.y].GetComponent<TowerTile>().enabled = false;
 
         while (currentPositon != new Vector2(x2, y2))
         {
             currentPositon += ReturnCloserDirection(currentPositon, x2, y2);
-            grid[currentPositon.x, currentPositon.y].gameObject.SetActive(false);
+            path.Add(grid[currentPositon.x, currentPositon.y]);
+            grid[currentPositon.x, currentPositon.y].GetComponent<MeshRenderer>().enabled = false;
             grid[currentPositon.x, currentPositon.y].GetComponent<TowerTile>().enabled = false;
             print(currentPositon);
         }
+        Path.AddRange(path);
+        foreach (Transform p in Path) print(p);
     }
 
     public Vector2Int ReturnCloserDirection(Vector2Int current, int x, int y)
