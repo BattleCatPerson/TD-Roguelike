@@ -16,6 +16,7 @@ public class CarvePath : MonoBehaviour
     [SerializeField] List<GridRow> rows;
     [SerializeField] int numberOfInterestPoints;
     [SerializeField] List<Transform> interestPoints;
+    [SerializeField] Material gradient;
     private int size;
     void Awake()
     {
@@ -69,7 +70,16 @@ public class CarvePath : MonoBehaviour
 
         GeneratePath(current, destination);
 
-
+        float amountPerTile = 1f / Path.Count;
+        float total = 0f;
+        foreach (Transform t in Path)
+        {
+            Material m = new Material(gradient);
+            Color c = new(m.color.r, m.color.g, m.color.b, 1 - total); //make sure the material's set to transparent so it can be transparent!
+            m.color = c;
+            total += amountPerTile;
+            t.GetComponent<Renderer>().material = m;
+        }
     }
 
     void Update()
@@ -83,7 +93,7 @@ public class CarvePath : MonoBehaviour
         path.Add(grid[currentPosition.y, currentPosition.x]);
         Path.Add(grid[currentPosition.y, currentPosition.x]);
 
-        grid[currentPosition.y, currentPosition.x].GetComponent<MeshRenderer>().enabled = false;
+        //grid[currentPosition.y, currentPosition.x].GetComponent<MeshRenderer>().enabled = false;
         grid[currentPosition.y, currentPosition.x].GetComponent<TowerTile>().enabled = false;
         while (currentPosition != destination)
         {
@@ -91,9 +101,13 @@ public class CarvePath : MonoBehaviour
             if (currentPosition.x >= size || currentPosition.y >= size) break;
             path.Add(grid[currentPosition.y, currentPosition.x]);
             Path.Add(grid[currentPosition.y, currentPosition.x]);
-            grid[currentPosition.y, currentPosition.x].GetComponent<MeshRenderer>().enabled = false;
+            //grid[currentPosition.y, currentPosition.x].GetComponent<MeshRenderer>().enabled = false;
             grid[currentPosition.y, currentPosition.x].GetComponent<TowerTile>().enabled = false;
         }
+        path.Add(grid[currentPosition.y, currentPosition.x]);
+        Path.Add(grid[currentPosition.y, currentPosition.x]);
+        //grid[currentPosition.y, currentPosition.x].GetComponent<MeshRenderer>().enabled = false;
+        grid[currentPosition.y, currentPosition.x].GetComponent<TowerTile>().enabled = false;
         return destination;
     }
 
