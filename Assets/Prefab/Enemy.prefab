@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 15632076074239168}
   - component: {fileID: 247521506836206896}
   - component: {fileID: 4055281787409347032}
-  m_Layer: 0
+  - component: {fileID: 8277105178477188573}
+  m_Layer: 3
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,3 +113,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path: []
+  pathIndex: 0
+  moveSpeed: 5
+  currentDestination: {fileID: 0}
+  distanceTraveled: 0
+  height: 2
+--- !u!114 &8277105178477188573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4714110768821545514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65a9c9a9810d3fb4f9f99c469fa4d7f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 20
