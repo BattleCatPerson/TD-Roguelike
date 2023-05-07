@@ -93,7 +93,6 @@ public class CarvePath : MonoBehaviour
         path.Add(grid[currentPosition.y, currentPosition.x]);
         Path.Add(grid[currentPosition.y, currentPosition.x]);
 
-        //grid[currentPosition.y, currentPosition.x].GetComponent<MeshRenderer>().enabled = false;
         grid[currentPosition.y, currentPosition.x].GetComponent<TowerTile>().enabled = false;
         while (currentPosition != destination)
         {
@@ -101,12 +100,10 @@ public class CarvePath : MonoBehaviour
             if (currentPosition.x >= size || currentPosition.y >= size) break;
             path.Add(grid[currentPosition.y, currentPosition.x]);
             Path.Add(grid[currentPosition.y, currentPosition.x]);
-            //grid[currentPosition.y, currentPosition.x].GetComponent<MeshRenderer>().enabled = false;
             grid[currentPosition.y, currentPosition.x].GetComponent<TowerTile>().enabled = false;
         }
         path.Add(grid[currentPosition.y, currentPosition.x]);
         Path.Add(grid[currentPosition.y, currentPosition.x]);
-        //grid[currentPosition.y, currentPosition.x].GetComponent<MeshRenderer>().enabled = false;
         grid[currentPosition.y, currentPosition.x].GetComponent<TowerTile>().enabled = false;
         return destination;
     }
