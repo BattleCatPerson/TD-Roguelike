@@ -11,14 +11,74 @@ public class CarvePath : MonoBehaviour
     [SerializeField] Transform startPosition;
     [SerializeField] Transform endPosition;
     [SerializeField] List<Transform> path;
+    [SerializeField] List<Transform> overlapping;
     public static List<Transform> Path;
     [SerializeField] int seed;
     [SerializeField] List<GridRow> rows;
     [SerializeField] int numberOfInterestPoints;
     [SerializeField] List<Transform> interestPoints;
     [SerializeField] Material gradient;
+    [SerializeField] Material endGradient;
     private int size;
     void Awake()
+    {
+        InitializeGrid();
+    }
+
+    public Vector2Int GeneratePath(Vector2Int currentPosition, Vector2Int destination)
+    {
+        Transform currentTransform = grid[currentPosition.y, currentPosition.x];
+        if (path.Contains(currentTransform)) overlapping.Add(currentTransform);
+        path.Add(currentTransform);
+        Path.Add(currentTransform);
+        currentTransform.GetComponent<TowerTile>().enabled = false;
+        while (currentPosition != destination)
+        {
+            currentPosition += ReturnCloserDirection(currentPosition, destination);
+            if (currentPosition.x >= size || currentPosition.y >= size) break;
+            currentTransform = grid[currentPosition.y, currentPosition.x];
+            if (path.Contains(currentTransform)) overlapping.Add(currentTransform);
+            path.Add(currentTransform);
+            Path.Add(currentTransform);
+            currentTransform.GetComponent<TowerTile>().enabled = false;
+        }
+        path.Add(currentTransform);
+        Path.Add(currentTransform);
+        currentTransform.GetComponent<TowerTile>().enabled = false;
+        return destination;
+    }
+
+    public Vector2Int ReturnCloserDirection(Vector2Int current, Vector2Int destination)
+    {
+        if (Math.Abs(destination.x - current.x) >= Math.Abs(destination.y - current.y))
+        {
+            Vector2Int dir = destination.x - current.x > 0 ? Vector2Int.right : Vector2Int.left;
+            return dir;
+        }
+        else
+        {
+            Vector2Int dir = destination.y - current.y > 0 ? Vector2Int.up : Vector2Int.down;
+            return dir;
+        }
+    }
+    public void AddTileToList(List<Transform> t) => tiles.AddRange(t);
+
+    public void AssignColor()
+    {
+        Vector3 colorDelta = new(endGradient.color.r - gradient.color.r, endGradient.color.g - gradient.color.g, endGradient.color.b - gradient.color.b);
+        float amountPerTile = 1f / Path.Count;
+        float total = 0f;
+        foreach (Transform t in Path)
+        {
+            Material m = new Material(gradient);
+            Color c = new(m.color.r + colorDelta.x * total, m.color.g + colorDelta.y * total, m.color.b + colorDelta.z * total, 1 - total); //make sure the material's set to transparent so it can be transparent!
+            m.color = c;
+            total += amountPerTile;
+            t.GetComponent<Renderer>().material = m;
+        }
+    }
+
+    public void InitializeGrid()
     {
         foreach (GridRow g in rows) AddTileToList(g.tiles);
         if (seed == 0) seed = (int)DateTime.Now.Ticks;
@@ -69,57 +129,7 @@ public class CarvePath : MonoBehaviour
         }
 
         GeneratePath(current, destination);
-
-        float amountPerTile = 1f / Path.Count;
-        float total = 0f;
-        foreach (Transform t in Path)
-        {
-            Material m = new Material(gradient);
-            Color c = new(m.color.r, m.color.g, m.color.b, 1 - total); //make sure the material's set to transparent so it can be transparent!
-            m.color = c;
-            total += amountPerTile;
-            t.GetComponent<Renderer>().material = m;
-        }
-    }
-
-    void Update()
-    {
+        AssignColor();
 
     }
-
-
-    public Vector2Int GeneratePath(Vector2Int currentPosition, Vector2Int destination)
-    {
-        path.Add(grid[currentPosition.y, currentPosition.x]);
-        Path.Add(grid[currentPosition.y, currentPosition.x]);
-
-        grid[currentPosition.y, currentPosition.x].GetComponent<TowerTile>().enabled = false;
-        while (currentPosition != destination)
-        {
-            currentPosition += ReturnCloserDirection(currentPosition, destination);
-            if (currentPosition.x >= size || currentPosition.y >= size) break;
-            path.Add(grid[currentPosition.y, currentPosition.x]);
-            Path.Add(grid[currentPosition.y, currentPosition.x]);
-            grid[currentPosition.y, currentPosition.x].GetComponent<TowerTile>().enabled = false;
-        }
-        path.Add(grid[currentPosition.y, currentPosition.x]);
-        Path.Add(grid[currentPosition.y, currentPosition.x]);
-        grid[currentPosition.y, currentPosition.x].GetComponent<TowerTile>().enabled = false;
-        return destination;
-    }
-
-    public Vector2Int ReturnCloserDirection(Vector2Int current, Vector2Int destination)
-    {
-        if (Math.Abs(destination.x - current.x) >= Math.Abs(destination.y - current.y))
-        {
-            Vector2Int dir = destination.x - current.x > 0 ? Vector2Int.right : Vector2Int.left;
-            return dir;
-        }
-        else
-        {
-            Vector2Int dir = destination.y - current.y > 0 ? Vector2Int.up : Vector2Int.down;
-            return dir;
-        }
-    }
-    public void AddTileToList(List<Transform> t) => tiles.AddRange(t);
 }

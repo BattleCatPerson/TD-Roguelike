@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028346, g: 0.22571373, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -506,10 +506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - {fileID: 11400000, guid: c76c71707990d7449b0876ed052b1514, type: 2}
-  - {fileID: 11400000, guid: d8b813e6b01688642b0f75e9fdcfdb98, type: 2}
-  - {fileID: 11400000, guid: d8b813e6b01688642b0f75e9fdcfdb98, type: 2}
-  - {fileID: 11400000, guid: c76c71707990d7449b0876ed052b1514, type: 2}
+  - {fileID: 11400000, guid: d9ebe577cb90e5b499f9a8ac8e0e2d9e, type: 2}
   currentWaveIndex: 0
   currentWave: {fileID: 0}
   currentEnemies: []
@@ -1430,6 +1427,7 @@ MonoBehaviour:
   startPosition: {fileID: 0}
   endPosition: {fileID: 0}
   path: []
+  overlapping: []
   seed: 0
   rows:
   - {fileID: 1047487693}
@@ -1460,6 +1458,7 @@ MonoBehaviour:
   numberOfInterestPoints: 4
   interestPoints: []
   gradient: {fileID: 2100000, guid: 1f3a672c35ef52c49bfe82a7fbb6a93c, type: 2}
+  endGradient: {fileID: 2100000, guid: d6fc251822a22c546acc55f27c7abdcb, type: 2}
 --- !u!114 &994688454 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5753340093987994097, guid: 769990560b6106d45a5df301225c08a5,
@@ -2971,13 +2970,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5022754264447359568, guid: 85bb1dd0242aade43bf0abf89b9ca91a,
         type: 3}
+      propertyPath: damage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5022754264447359568, guid: 85bb1dd0242aade43bf0abf89b9ca91a,
+        type: 3}
       propertyPath: fireRate
-      value: 0.1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5022754264447359568, guid: 85bb1dd0242aade43bf0abf89b9ca91a,
         type: 3}
       propertyPath: projectileSpeed
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8119921376970791042, guid: 85bb1dd0242aade43bf0abf89b9ca91a,
         type: 3}
