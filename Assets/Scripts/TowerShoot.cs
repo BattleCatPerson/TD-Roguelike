@@ -15,6 +15,9 @@ public class TowerShoot : MonoBehaviour
     [SerializeField] Transform spawnPoint;
     [SerializeField] Transform nozzle;
     [SerializeField] List<Transform> enemyList;
+
+    [SerializeField] float cost;
+    public float Cost { get { return cost; } }
     void Start()
     {
         currentFireTime = 0f;

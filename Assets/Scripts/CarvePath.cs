@@ -31,7 +31,7 @@ public class CarvePath : MonoBehaviour
         if (path.Contains(currentTransform)) overlapping.Add(currentTransform);
         path.Add(currentTransform);
         Path.Add(currentTransform);
-        currentTransform.GetComponent<TowerTile>().enabled = false;
+        currentTransform.GetComponent<TowerTile>().isEnabled = false;
         while (currentPosition != destination)
         {
             currentPosition += ReturnCloserDirection(currentPosition, destination);
@@ -40,11 +40,11 @@ public class CarvePath : MonoBehaviour
             if (path.Contains(currentTransform)) overlapping.Add(currentTransform);
             path.Add(currentTransform);
             Path.Add(currentTransform);
-            currentTransform.GetComponent<TowerTile>().enabled = false;
+            currentTransform.GetComponent<TowerTile>().isEnabled = false;
         }
         path.Add(currentTransform);
         Path.Add(currentTransform);
-        currentTransform.GetComponent<TowerTile>().enabled = false;
+        currentTransform.GetComponent<TowerTile>().isEnabled = false;
         return destination;
     }
 

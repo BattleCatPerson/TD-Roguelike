@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class TowerTile : MonoBehaviour
 {
-    public bool enabled;
-    void Start()
-    {
-        
-    }
+    public bool isEnabled;
+    [SerializeField] TowerShoot currentTower;
 
-    // Update is called once per frame
-    void Update()
+    public void SetTower(TowerShoot tower)
     {
-        
+        currentTower = tower;
+        isEnabled = false;
     }
 }
