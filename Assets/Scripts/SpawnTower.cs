@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class SpawnTower : MonoBehaviour
 {
-    [SerializeField] float resources;
+    public static float resources;
+    [SerializeField] float startingResources;
     static TowerShoot currentTower;
     [SerializeField] TowerShoot currentTowerInspector;
     [SerializeField] float currentCost;
     [SerializeField] TowerTile hoveredTile;
     [SerializeField] LayerMask tileLayer;
+
+    private void Awake()
+    {
+        resources = startingResources;
+    }
+
     public static void SetTower(TowerShoot tower)
     {
         currentTower = tower;
@@ -23,6 +30,17 @@ public class SpawnTower : MonoBehaviour
             currentCost = currentTower.Cost;
         }
 
+        RaycastTile();
+        if (hoveredTile && Input.GetMouseButtonDown(0) && currentTower)
+        {
+            hoveredTile.SpawnTower(currentTower);
+            resources -= currentTower.Cost;
+            currentTower = null;
+        }
+    }
+
+    public void RaycastTile()
+    {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 

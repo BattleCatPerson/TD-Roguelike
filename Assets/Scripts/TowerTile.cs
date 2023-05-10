@@ -6,10 +6,12 @@ public class TowerTile : MonoBehaviour
 {
     public bool isEnabled;
     [SerializeField] TowerShoot currentTower;
+    [SerializeField] Transform towerSpawn;
 
-    public void SetTower(TowerShoot tower)
+    public void SpawnTower(TowerShoot tower)
     {
-        currentTower = tower;
+        var clone = Instantiate(tower.gameObject, new(transform.position.x, towerSpawn.position.y, transform.position.z), towerSpawn.rotation);
         isEnabled = false;
+        currentTower = clone.GetComponent<TowerShoot>();
     }
 }

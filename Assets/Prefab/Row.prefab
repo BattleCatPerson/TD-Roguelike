@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2108801072041620590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 525212286518715000}
+  m_Layer: 0
+  m_Name: Tower Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &525212286518715000
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108801072041620590}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2121535690029424640}
+  m_RootOrder: 25
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2121535689077810086
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,8 +141,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535689256264160
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,8 +254,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535689349150244
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,8 +367,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535689396806932
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,8 +480,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535689409972629
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,8 +593,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535689412215911
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,8 +706,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535689453843019
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,8 +819,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535689519333029
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,8 +932,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535689583123810
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,8 +1045,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535689627505271
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,8 +1158,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535689648818581
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,8 +1271,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535689719267260
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,8 +1384,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535689723881975
 GameObject:
   m_ObjectHideFlags: 0
@@ -1454,8 +1497,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535690029424643
 GameObject:
   m_ObjectHideFlags: 0
@@ -1510,6 +1554,7 @@ Transform:
   - {fileID: 2121535690660799263}
   - {fileID: 2121535689453843016}
   - {fileID: 2121535690055560120}
+  - {fileID: 525212286518715000}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1662,8 +1707,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535690126644095
 GameObject:
   m_ObjectHideFlags: 0
@@ -1774,8 +1820,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535690148641521
 GameObject:
   m_ObjectHideFlags: 0
@@ -1886,8 +1933,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535690305631530
 GameObject:
   m_ObjectHideFlags: 0
@@ -1998,8 +2046,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535690392635337
 GameObject:
   m_ObjectHideFlags: 0
@@ -2110,8 +2159,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535690496141337
 GameObject:
   m_ObjectHideFlags: 0
@@ -2222,8 +2272,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535690660799262
 GameObject:
   m_ObjectHideFlags: 0
@@ -2334,8 +2385,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535690714131809
 GameObject:
   m_ObjectHideFlags: 0
@@ -2446,8 +2498,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535690827401896
 GameObject:
   m_ObjectHideFlags: 0
@@ -2558,8 +2611,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535690935252248
 GameObject:
   m_ObjectHideFlags: 0
@@ -2670,8 +2724,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535690978909180
 GameObject:
   m_ObjectHideFlags: 0
@@ -2782,8 +2837,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
 --- !u!1 &2121535691115819818
 GameObject:
   m_ObjectHideFlags: 0
@@ -2894,5 +2950,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a1ff40746293645bc421d7d9dd20b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnabled: 0
+  isEnabled: 1
   currentTower: {fileID: 0}
+  towerSpawn: {fileID: 525212286518715000}
