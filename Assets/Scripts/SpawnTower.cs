@@ -9,6 +9,7 @@ public class SpawnTower : MonoBehaviour
     [SerializeField] TowerShoot currentTowerInspector;
     [SerializeField] float currentCost;
     [SerializeField] TowerTile hoveredTile;
+    [SerializeField] LayerMask tileLayer;
     public static void SetTower(TowerShoot tower)
     {
         currentTower = tower;
@@ -21,14 +22,14 @@ public class SpawnTower : MonoBehaviour
             currentTowerInspector = currentTower;
             currentCost = currentTower.Cost;
         }
-        Ray ray = new(Camera.main.transform.position, Camera.main.transform.forward);
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, tileLayer) && hit.collider.GetComponent<TowerTile>() && hit.collider.GetComponent<TowerTile>().isEnabled)
         {
-            if (hit.collider.TryGetComponent<TowerTile>(out TowerTile t))
-            {
-                hoveredTile = t;
-            }
+            hoveredTile = hit.collider.GetComponent<TowerTile>();
         }
+        else hoveredTile = null;
     }
 }
