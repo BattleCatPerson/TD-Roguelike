@@ -36,6 +36,7 @@ public class EnemyPathfinding : MonoBehaviour
         if (pathIndex >= path.Count)
         {
             HealthManager.health -= healthRemoved;
+            HealthManager.health = Mathf.Clamp(HealthManager.health, 0, Mathf.Infinity);
             Destroy(gameObject);
         }
         MoveTowardsCurrentPoint();

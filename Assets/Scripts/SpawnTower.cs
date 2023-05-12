@@ -12,6 +12,8 @@ public class SpawnTower : MonoBehaviour
     [SerializeField] TowerTile hoveredTile;
     [SerializeField] LayerMask tileLayer;
 
+    [SerializeField] GameObject towerPanel;
+    [SerializeField] GameObject statusPanel;
     bool stop;
     private void Awake()
     {
@@ -54,5 +56,10 @@ public class SpawnTower : MonoBehaviour
         else hoveredTile = null;
     }
 
-    public void OnDeath() => stop = true;
+    public void OnDeath()
+    {
+        stop = true;
+        towerPanel.SetActive(false);
+        statusPanel.SetActive(false);
+    }
 }
