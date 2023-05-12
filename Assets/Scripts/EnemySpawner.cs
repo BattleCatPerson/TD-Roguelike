@@ -11,6 +11,13 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] float currentTimeBetweenEnemies;
     [SerializeField] float countdown;
     [SerializeField] int currentEnemyIndex;
+
+    [SerializeField] bool stop;
+
+    private void Awake()
+    {
+        HealthManager.onDeath += OnDeath;
+    }
     void Start()
     {
         transform.position = new(CarvePath.Path[0].position.x, CarvePath.Path[0].position.y + 2, CarvePath.Path[0].position.z);
@@ -19,6 +26,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
+        if (stop) return;
         if (currentWaveIndex >= waves.Count)
         {
             print("waves done spawning");
@@ -53,4 +61,6 @@ public class EnemySpawner : MonoBehaviour
         countdown = currentTimeBetweenEnemies;
         currentEnemyIndex = 0;
     }
+
+    public void OnDeath() => stop = true;
 }

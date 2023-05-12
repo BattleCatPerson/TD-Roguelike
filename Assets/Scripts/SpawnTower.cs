@@ -12,9 +12,11 @@ public class SpawnTower : MonoBehaviour
     [SerializeField] TowerTile hoveredTile;
     [SerializeField] LayerMask tileLayer;
 
+    bool stop;
     private void Awake()
     {
         resources = startingResources;
+        HealthManager.onDeath += OnDeath;
     }
 
     public static void SetTower(TowerShoot tower)
@@ -24,6 +26,7 @@ public class SpawnTower : MonoBehaviour
 
     private void Update()
     {
+        if (stop) return;
         if (currentTower != null)
         {
             currentTowerInspector = currentTower;
@@ -50,4 +53,6 @@ public class SpawnTower : MonoBehaviour
         }
         else hoveredTile = null;
     }
+
+    public void OnDeath() => stop = true;
 }

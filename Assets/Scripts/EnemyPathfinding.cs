@@ -12,6 +12,8 @@ public class EnemyPathfinding : MonoBehaviour
     [SerializeField] Transform currentDestination;
     [SerializeField] float distanceTraveled;
     [SerializeField] float height;
+
+    [SerializeField] float healthRemoved;
     public float DistanceTraveled { get { return distanceTraveled; } }
     private void Awake()
     {
@@ -31,6 +33,11 @@ public class EnemyPathfinding : MonoBehaviour
 
     void Update()
     {
+        if (pathIndex >= path.Count)
+        {
+            HealthManager.health -= healthRemoved;
+            Destroy(gameObject);
+        }
         MoveTowardsCurrentPoint();
         if (pathIndex < path.Count)
         {

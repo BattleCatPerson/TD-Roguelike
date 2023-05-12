@@ -18,6 +18,6 @@ public class TowerButton : MonoBehaviour
 
     private void Update()
     {
-        button.interactable = SpawnTower.resources >= tower.Cost;
+        button.interactable = SpawnTower.resources >= tower.Cost && HealthManager.health > 0;
     }
 }

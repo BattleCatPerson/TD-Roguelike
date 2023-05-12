@@ -118,6 +118,7 @@ MonoBehaviour:
   currentDestination: {fileID: 0}
   distanceTraveled: 0
   height: 2
+  healthRemoved: 5
 --- !u!114 &8277105178477188573
 MonoBehaviour:
   m_ObjectHideFlags: 0

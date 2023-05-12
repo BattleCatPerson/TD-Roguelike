@@ -18,6 +18,12 @@ public class TowerShoot : MonoBehaviour
 
     [SerializeField] float cost;
     public float Cost { get { return cost; } }
+
+    [SerializeField] bool stop;
+    private void Awake()
+    {
+        HealthManager.onDeath += OnDeath;
+    }
     void Start()
     {
         currentFireTime = 0f;
@@ -25,6 +31,7 @@ public class TowerShoot : MonoBehaviour
 
     void Update()
     {
+        if (stop) return;
         enemyList.Clear();
         foreach (Transform t in EnemyPathfinding.enemies)
         {
@@ -65,4 +72,7 @@ public class TowerShoot : MonoBehaviour
         tp.SetDamage(damage);
         currentFireTime = fireRate;
     }
+
+    public void OnDeath() => stop = true;
+
 }
