@@ -284,6 +284,8 @@ MonoBehaviour:
   nozzle: {fileID: 5841885110435582231}
   enemyList: []
   cost: 30
+  costAfterBuildPhase: 50
+  stop: 0
 --- !u!1 &8830999086866249955
 GameObject:
   m_ObjectHideFlags: 0

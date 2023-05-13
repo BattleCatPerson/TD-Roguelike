@@ -17,7 +17,10 @@ public class TowerShoot : MonoBehaviour
     [SerializeField] List<Transform> enemyList;
 
     [SerializeField] float cost;
+    [SerializeField] float costAfterBuildPhase;
     public float Cost { get { return cost; } }
+    public float CostAfterBuildPhase { get { return costAfterBuildPhase; } }
+
 
     [SerializeField] bool stop;
     private void Awake()

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SpawnTower : MonoBehaviour
 {
+    public static SpawnTower instance;
     public static float resources;
-    [SerializeField] float startingResources;
     static TowerShoot currentTower;
     [SerializeField] TowerShoot currentTowerInspector;
     [SerializeField] float currentCost;
@@ -14,11 +14,15 @@ public class SpawnTower : MonoBehaviour
 
     [SerializeField] GameObject towerPanel;
     [SerializeField] GameObject statusPanel;
-    bool stop;
+
+    [SerializeField] bool buildPhase;
+    public bool BuildPhase { get { return buildPhase; } }
+    private bool stop;
     private void Awake()
     {
-        resources = startingResources;
+        instance = this;
         HealthManager.onDeath += OnDeath;
+        buildPhase = true;
     }
 
     public static void SetTower(TowerShoot tower)
@@ -36,10 +40,14 @@ public class SpawnTower : MonoBehaviour
         }
 
         RaycastTile();
-        if (hoveredTile && Input.GetMouseButtonDown(0) && currentTower)
+        if (Input.GetMouseButtonDown(0) && currentTower)
         {
-            hoveredTile.SpawnTower(currentTower);
-            resources -= currentTower.Cost;
+            if (hoveredTile)
+            {
+                float c = buildPhase ? currentTower.Cost : currentTower.CostAfterBuildPhase;
+                hoveredTile.SpawnTower(currentTower);
+                resources -= c;
+            }
             currentTower = null;
         }
     }
@@ -61,5 +69,10 @@ public class SpawnTower : MonoBehaviour
         stop = true;
         towerPanel.SetActive(false);
         statusPanel.SetActive(false);
+    }
+
+    public void StopBuildPhase()
+    {
+        buildPhase = false;
     }
 }

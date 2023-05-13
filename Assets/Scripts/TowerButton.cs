@@ -21,7 +21,16 @@ public class TowerButton : MonoBehaviour
 
     private void Update()
     {
-        text.text = tower.name + " " + tower.Cost;
-        button.interactable = SpawnTower.resources >= tower.Cost && HealthManager.health > 0;
+        if (SpawnTower.instance.BuildPhase)
+        {
+            text.text = tower.name + " " + tower.Cost;
+            button.interactable = SpawnTower.resources >= tower.Cost && HealthManager.health > 0;
+        }
+        else
+        {
+            text.text = tower.name + " " + tower.CostAfterBuildPhase;
+            button.interactable = SpawnTower.resources >= tower.CostAfterBuildPhase && HealthManager.health > 0;
+        }
+
     }
 }

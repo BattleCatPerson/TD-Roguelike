@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -11,9 +12,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] float currentTimeBetweenEnemies;
     [SerializeField] float countdown;
     [SerializeField] int currentEnemyIndex;
-
     [SerializeField] bool stop;
-
+    [SerializeField] string mapScene;
     private void Awake()
     {
         HealthManager.onDeath += OnDeath;
@@ -26,10 +26,10 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        if (stop) return;
-        if (currentWaveIndex >= waves.Count)
+        if (stop || SpawnTower.instance.BuildPhase) return;
+        if (currentWaveIndex >= waves.Count && EnemyPathfinding.enemies.Count == 0)
         {
-            print("waves done spawning");
+            SceneManager.LoadScene(mapScene);
             return;
         }
         if (currentEnemyIndex >= currentEnemies.Count)
