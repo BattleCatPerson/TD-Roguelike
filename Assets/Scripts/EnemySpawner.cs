@@ -8,18 +8,22 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] List<EnemyWave> waves;
     [SerializeField] int currentWaveIndex;
     [SerializeField] EnemyWave currentWave;
+
     [SerializeField] List<EnemyPathfinding> currentEnemies;
     [SerializeField] float currentTimeBetweenEnemies;
     [SerializeField] float countdown;
     [SerializeField] int currentEnemyIndex;
     [SerializeField] bool stop;
+
     [SerializeField] string mapScene;
+    [SerializeField] GameObject continuePanel;
     private void Awake()
     {
         HealthManager.onDeath += OnDeath;
     }
     void Start()
     {
+        continuePanel.SetActive(false);
         transform.position = new(CarvePath.Path[0].position.x, CarvePath.Path[0].position.y + 2, CarvePath.Path[0].position.z);
         ChangeWave();
     }
@@ -27,9 +31,9 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
         if (stop || SpawnTower.instance.BuildPhase) return;
-        if (currentWaveIndex >= waves.Count && EnemyPathfinding.enemies.Count == 0)
+        if (currentWaveIndex >= waves.Count && EnemyPathfinding.enemies.Count == 0 && HealthManager.health > 0)
         {
-            SceneManager.LoadScene(mapScene);
+            continuePanel.SetActive(true);
             return;
         }
         if (currentEnemyIndex >= currentEnemies.Count)
@@ -63,4 +67,8 @@ public class EnemySpawner : MonoBehaviour
     }
 
     public void OnDeath() => stop = true;
+    public void LoadScene()
+    {
+        SceneManager.LoadScene(mapScene);
+    }
 }

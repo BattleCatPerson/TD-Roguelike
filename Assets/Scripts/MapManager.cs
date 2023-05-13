@@ -13,22 +13,27 @@ public class MapManager : MonoBehaviour
     [SerializeField] List<Button> availableButtons;
     [SerializeField] string battleScene;
     [SerializeField] float startingResources;
+    [SerializeField] float startingHealth;
     private void Awake()
     {
         instance = this;
-        if (SpawnTower.resources == 0 && !started)
+        if (SpawnTower.resources == 0 && HealthManager.health == - 1 && !started)
         {
             SpawnTower.resources = startingResources;
+            HealthManager.health = startingHealth;
             started = true;
         }
     }
 
     void Start()
     {
-        if (row > rows.Count) return;
-        availableButtons.Add(rows[row + 1].buttons[col * 2]);
-        availableButtons.Add(rows[row + 1].buttons[col * 2 + 1]);
 
+        if (row + 1 < rows.Count)
+        {
+            availableButtons.Add(rows[row + 1].buttons[col * 2]);
+            availableButtons.Add(rows[row + 1].buttons[col * 2 + 1]);
+        }
+        
         foreach (TreeRow row in rows)
         {
             foreach (Button button in row.buttons)
@@ -36,6 +41,7 @@ public class MapManager : MonoBehaviour
                 if (!availableButtons.Contains(button)) button.interactable = false;
             }
         }
+
 
     }
     public void LoadBattleScene(Button b)
