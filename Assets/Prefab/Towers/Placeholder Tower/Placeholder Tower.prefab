@@ -286,6 +286,7 @@ MonoBehaviour:
   cost: 30
   costAfterBuildPhase: 50
   stop: 0
+  targetEnemiesOrAttackInRadius: 1
 --- !u!1 &8830999086866249955
 GameObject:
   m_ObjectHideFlags: 0

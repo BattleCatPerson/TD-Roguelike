@@ -23,6 +23,7 @@ public class TowerShoot : MonoBehaviour
 
 
     [SerializeField] bool stop;
+    [SerializeField] bool targetEnemiesOrAttackInRadius;
     private void Awake()
     {
         HealthManager.onDeath += OnDeath;
@@ -35,18 +36,8 @@ public class TowerShoot : MonoBehaviour
     void Update()
     {
         if (stop) return;
-        enemyList.Clear();
-        foreach (Transform t in EnemyPathfinding.enemies)
-        {
-            if (Vector3.Distance(transform.position, t.position) <= range && !enemyList.Contains(t)) enemyList.Add(t);
-            else if (Vector3.Distance(transform.position, t.position) > range && enemyList.Contains(t)) enemyList.Remove(t);
-        }
-        if (currentFireTime > 0) currentFireTime -= Time.deltaTime;
-        if (enemyList.Count > 0)
-        {
-            nozzle.LookAt(ReturnFurthestEnemy());
-            if (currentFireTime <= 0) SpawnProjectile();
-        }
+        if (targetEnemiesOrAttackInRadius) TargetedShoot();
+        else ShootInRadius();
     }
 
     public Transform ReturnFurthestEnemy()
@@ -78,4 +69,24 @@ public class TowerShoot : MonoBehaviour
 
     public void OnDeath() => stop = true;
 
+    public void TargetedShoot()
+    {
+        enemyList.Clear();
+        foreach (Transform t in EnemyPathfinding.enemies)
+        {
+            if (Vector3.Distance(transform.position, t.position) <= range && !enemyList.Contains(t)) enemyList.Add(t);
+            else if (Vector3.Distance(transform.position, t.position) > range && enemyList.Contains(t)) enemyList.Remove(t);
+        }
+        if (currentFireTime > 0) currentFireTime -= Time.deltaTime;
+        if (enemyList.Count > 0)
+        {
+            nozzle.LookAt(ReturnFurthestEnemy());
+            if (currentFireTime <= 0) SpawnProjectile();
+        }
+    }
+
+    public void ShootInRadius()
+    {
+
+    }
 }
