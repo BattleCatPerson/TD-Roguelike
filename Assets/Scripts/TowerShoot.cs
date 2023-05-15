@@ -13,7 +13,7 @@ public class TowerShoot : MonoBehaviour
 
     private float currentFireTime;
     [SerializeField] Transform spawnPoint;
-    [SerializeField] Transform nozzle;
+    [SerializeField, Tooltip("Only assign if the tower does not attack in a radius")] Transform nozzle;
     [SerializeField] List<Transform> enemyList;
 
     [SerializeField] float cost;
@@ -36,6 +36,9 @@ public class TowerShoot : MonoBehaviour
     void Update()
     {
         if (stop) return;
+        enemyList.Clear();
+        if (currentFireTime > 0) currentFireTime -= Time.deltaTime;
+
         if (targetEnemiesOrAttackInRadius) TargetedShoot();
         else ShootInRadius();
     }
@@ -71,13 +74,11 @@ public class TowerShoot : MonoBehaviour
 
     public void TargetedShoot()
     {
-        enemyList.Clear();
         foreach (Transform t in EnemyPathfinding.enemies)
         {
             if (Vector3.Distance(transform.position, t.position) <= range && !enemyList.Contains(t)) enemyList.Add(t);
             else if (Vector3.Distance(transform.position, t.position) > range && enemyList.Contains(t)) enemyList.Remove(t);
         }
-        if (currentFireTime > 0) currentFireTime -= Time.deltaTime;
         if (enemyList.Count > 0)
         {
             nozzle.LookAt(ReturnFurthestEnemy());
