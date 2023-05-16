@@ -37,8 +37,13 @@ public class TowerShoot : MonoBehaviour
     {
         if (stop) return;
         enemyList.Clear();
-        if (currentFireTime > 0) currentFireTime -= Time.deltaTime;
+        foreach (Transform t in EnemyPathfinding.enemies)
+        {
+            if (Vector3.Distance(transform.position, t.position) <= range && !enemyList.Contains(t)) enemyList.Add(t);
+            else if (Vector3.Distance(transform.position, t.position) > range && enemyList.Contains(t)) enemyList.Remove(t);
+        }
 
+        if (currentFireTime > 0) currentFireTime -= Time.deltaTime;
         if (targetEnemiesOrAttackInRadius) TargetedShoot();
         else ShootInRadius();
     }
@@ -74,11 +79,6 @@ public class TowerShoot : MonoBehaviour
 
     public void TargetedShoot()
     {
-        foreach (Transform t in EnemyPathfinding.enemies)
-        {
-            if (Vector3.Distance(transform.position, t.position) <= range && !enemyList.Contains(t)) enemyList.Add(t);
-            else if (Vector3.Distance(transform.position, t.position) > range && enemyList.Contains(t)) enemyList.Remove(t);
-        }
         if (enemyList.Count > 0)
         {
             nozzle.LookAt(ReturnFurthestEnemy());
@@ -88,6 +88,10 @@ public class TowerShoot : MonoBehaviour
 
     public void ShootInRadius()
     {
-
+        if (enemyList.Count > 0 && currentFireTime <= 0)
+        {
+            foreach (Transform t in enemyList) t.GetComponent<EnemyHealth>().DecreaseHealth(damage);
+            currentFireTime = fireRate;
+        }
     }
 }
