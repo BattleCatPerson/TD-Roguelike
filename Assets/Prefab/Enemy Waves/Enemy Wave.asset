@@ -17,4 +17,4 @@ MonoBehaviour:
   - {fileID: 4055281787409347032, guid: 37db89a377d89814d843cd7bae8f19cc, type: 3}
   - {fileID: 4055281787409347032, guid: 37db89a377d89814d843cd7bae8f19cc, type: 3}
   - {fileID: 4055281787409347032, guid: 37db89a377d89814d843cd7bae8f19cc, type: 3}
-  timeBetweenEnemies: 1
+  timeBetweenEnemies: 0.1

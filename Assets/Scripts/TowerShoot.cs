@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public class TowerShoot : MonoBehaviour
 {
     [SerializeField] GameObject projectile;
@@ -24,6 +24,7 @@ public class TowerShoot : MonoBehaviour
 
     [SerializeField] bool stop;
     [SerializeField] bool targetEnemiesOrAttackInRadius;
+    public event Action OnShoot;
     private void Awake()
     {
         HealthManager.onDeath += OnDeath;
@@ -82,7 +83,11 @@ public class TowerShoot : MonoBehaviour
         if (enemyList.Count > 0)
         {
             nozzle.LookAt(ReturnFurthestEnemy());
-            if (currentFireTime <= 0) SpawnProjectile();
+            if (currentFireTime <= 0)
+            {
+                SpawnProjectile();
+                OnShoot?.Invoke();
+            }
         }
     }
 
@@ -92,6 +97,7 @@ public class TowerShoot : MonoBehaviour
         {
             foreach (Transform t in enemyList) t.GetComponent<EnemyHealth>().DecreaseHealth(damage);
             currentFireTime = fireRate;
+            OnShoot?.Invoke();
         }
     }
 }
