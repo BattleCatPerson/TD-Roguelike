@@ -24,6 +24,9 @@ public class TowerShoot : MonoBehaviour
 
     [SerializeField] bool stop;
     [SerializeField] bool targetEnemiesOrAttackInRadius;
+
+    [SerializeField] float attackDelay;
+    bool waiting;
     public event Action OnShoot;
     private void Awake()
     {
@@ -45,8 +48,14 @@ public class TowerShoot : MonoBehaviour
         }
 
         if (currentFireTime > 0) currentFireTime -= Time.deltaTime;
-        if (targetEnemiesOrAttackInRadius) TargetedShoot();
-        else ShootInRadius();
+        if (currentFireTime <= 0)
+        {
+            if (waiting) return;
+            StartCoroutine(Wait());
+            if (targetEnemiesOrAttackInRadius) TargetedShoot();
+            else ShootInRadius();
+        }
+        
     }
 
     public Transform ReturnFurthestEnemy()
@@ -99,5 +108,12 @@ public class TowerShoot : MonoBehaviour
             currentFireTime = fireRate;
             OnShoot?.Invoke();
         }
+    }
+
+    public IEnumerator Wait()
+    {
+        waiting = true;
+        yield return new WaitForSeconds(attackDelay);
+        waiting = false;
     }
 }

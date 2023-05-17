@@ -66,6 +66,7 @@ public class SpawnTower : MonoBehaviour
 
     public void OnDeath()
     {
+        if (stop) return;
         stop = true;
         towerPanel.SetActive(false);
         statusPanel.SetActive(false);
