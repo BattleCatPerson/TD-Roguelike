@@ -284,10 +284,11 @@ MonoBehaviour:
   nozzle: {fileID: 5841885110435582231}
   enemyList: []
   resourceCosts:
+  - 10
+  - 10
   - 0
   - 0
-  - 0
-  - 0
+  resourceCostsAfterBuildPhase: []
   cost: 30
   costAfterBuildPhase: 50
   stop: 0

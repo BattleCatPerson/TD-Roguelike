@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class AddResources : MonoBehaviour
 {
-    [SerializeField] float resources;
+    [SerializeField] List<float> resources;
     [SerializeField] bool pressed;
     public void Add()
     {
         if (pressed) return;
         pressed = true;
-        SpawnTower.resources += resources;
+        for (int i = 0; i < resources.Count; i++) SpawnTower.resources[i] += resources[i];
         MapManager.instance.LoadBattleScene(GetComponent<Button>());
     }
 }

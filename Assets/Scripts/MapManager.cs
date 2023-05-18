@@ -12,12 +12,12 @@ public class MapManager : MonoBehaviour
     [SerializeField] List<TreeRow> rows;
     [SerializeField] List<Button> availableButtons;
     [SerializeField] string battleScene;
-    [SerializeField] float startingResources;
+    [SerializeField] List<float> startingResources;
     [SerializeField] float startingHealth;
     private void Awake()
     {
         instance = this;
-        if (SpawnTower.resources == 0 && HealthManager.health == - 1 && !started)
+        if (HealthManager.health == - 1 && !started)
         {
             SpawnTower.resources = startingResources;
             HealthManager.health = startingHealth;

@@ -5,10 +5,10 @@ using UnityEngine;
 public class SpawnTower : MonoBehaviour
 {
     public static SpawnTower instance;
-    public static float resources;
+    public static List<float> resources;
     static TowerShoot currentTower;
     [SerializeField] TowerShoot currentTowerInspector;
-    [SerializeField] float currentCost;
+    [SerializeField] List<float> currentCost;
     [SerializeField] TowerTile hoveredTile;
     [SerializeField] LayerMask tileLayer;
 
@@ -36,7 +36,7 @@ public class SpawnTower : MonoBehaviour
         if (currentTower != null)
         {
             currentTowerInspector = currentTower;
-            currentCost = currentTower.Cost;
+            currentCost = currentTower.ResourceCosts;
         }
 
         RaycastTile();
@@ -44,9 +44,9 @@ public class SpawnTower : MonoBehaviour
         {
             if (hoveredTile)
             {
-                float c = buildPhase ? currentTower.Cost : currentTower.CostAfterBuildPhase;
+                List<float> c = buildPhase ? currentTower.ResourceCosts : currentTower.ResourceCostsAfterBuildPhase;
                 hoveredTile.SpawnTower(currentTower);
-                resources -= c;
+                for (int i = 0; i < resources.Count; i++) resources[i] -= c[i];
             }
             currentTower = null;
         }

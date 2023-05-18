@@ -12,7 +12,7 @@ public class TowerButton : MonoBehaviour
     {
         button = GetComponent<Button>();
         text = button.GetComponentInChildren<TextMeshProUGUI>();
-        text.text = tower.name + " " + tower.Cost;
+        text.text = tower.name;
     }
     public void ChangeTower()
     {
@@ -21,16 +21,17 @@ public class TowerButton : MonoBehaviour
 
     private void Update()
     {
-        if (SpawnTower.instance.BuildPhase)
+        var r = SpawnTower.instance.BuildPhase ? tower.ResourceCosts : tower.ResourceCostsAfterBuildPhase;
+
+        for (int i = 0; i < SpawnTower.resources.Count; i++)
         {
-            text.text = tower.name + " " + tower.Cost;
-            button.interactable = SpawnTower.resources >= tower.Cost && HealthManager.health > 0;
-        }
-        else
-        {
-            text.text = tower.name + " " + tower.CostAfterBuildPhase;
-            button.interactable = SpawnTower.resources >= tower.CostAfterBuildPhase && HealthManager.health > 0;
+            if (SpawnTower.resources[i] < r[i])
+            {
+                button.interactable = false;
+                break;
+            }
         }
 
+        if (HealthManager.health <= 0) button.interactable = false;
     }
 }

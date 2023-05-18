@@ -18,6 +18,10 @@ public class TowerShoot : MonoBehaviour
 
     [Header("Order: Wood, Stone, Iron, Gold (add more later)")]
     [SerializeField] List<float> resourceCosts;
+    public List<float> ResourceCosts { get { return resourceCosts; } }
+    [SerializeField] List<float> resourceCostsAfterBuildPhase;
+    public List<float> ResourceCostsAfterBuildPhase { get { return resourceCostsAfterBuildPhase; } }
+
     [SerializeField] float cost;
     [SerializeField] float costAfterBuildPhase;
     public float Cost { get { return cost; } }
