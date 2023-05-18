@@ -5212,6 +5212,7 @@ GameObject:
   - component: {fileID: 7297090142765254583}
   - component: {fileID: 2355662918430306904}
   - component: {fileID: 643217383259490263}
+  - component: {fileID: 1471976651816387530}
   m_Layer: 0
   m_Name: Lightning Rod
   m_TagString: Untagged
@@ -5295,6 +5296,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particle: {fileID: 8011605568772852704}
+--- !u!114 &1471976651816387530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7297090141999836149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c27e7cb0b6e574e883fc209d1a4d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  trigger: Shoot
+  tower: {fileID: 0}
 --- !u!1001 &1944732433997259420
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5310,7 +5326,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 2f4dfba027038674b8a072b829151b57,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 8.985567
+      value: 37.116684
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2f4dfba027038674b8a072b829151b57,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4.1307
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2f4dfba027038674b8a072b829151b57,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4.1307
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2f4dfba027038674b8a072b829151b57,
         type: 3}
@@ -5362,6 +5388,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3855335175272487014, guid: 2f4dfba027038674b8a072b829151b57,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 308a8408e2596a640990ae069f4428fd, type: 2}
     - target: {fileID: 919132149155446097, guid: 2f4dfba027038674b8a072b829151b57,
         type: 3}
       propertyPath: m_Name

@@ -283,10 +283,16 @@ MonoBehaviour:
   spawnPoint: {fileID: 1629506135846014375}
   nozzle: {fileID: 5841885110435582231}
   enemyList: []
+  resourceCosts:
+  - 0
+  - 0
+  - 0
+  - 0
   cost: 30
   costAfterBuildPhase: 50
   stop: 0
   targetEnemiesOrAttackInRadius: 1
+  attackDelay: 0
 --- !u!1 &8830999086866249955
 GameObject:
   m_ObjectHideFlags: 0

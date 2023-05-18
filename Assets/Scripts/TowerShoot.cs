@@ -16,6 +16,8 @@ public class TowerShoot : MonoBehaviour
     [SerializeField, Tooltip("Only assign if the tower does not attack in a radius")] Transform nozzle;
     [SerializeField] List<Transform> enemyList;
 
+    [Header("Order: Wood, Stone, Iron, Gold (add more later)")]
+    [SerializeField] List<float> resourceCosts;
     [SerializeField] float cost;
     [SerializeField] float costAfterBuildPhase;
     public float Cost { get { return cost; } }
@@ -39,7 +41,7 @@ public class TowerShoot : MonoBehaviour
 
     void Update()
     {
-        if (stop) return;
+        if (stop || SpawnTower.instance.BuildPhase) return;
         enemyList.Clear();
         foreach (Transform t in EnemyPathfinding.enemies)
         {
@@ -48,14 +50,12 @@ public class TowerShoot : MonoBehaviour
         }
 
         if (currentFireTime > 0) currentFireTime -= Time.deltaTime;
-        if (currentFireTime <= 0)
+        if (currentFireTime <= 0 && enemyList.Count > 0)
         {
             if (waiting) return;
             StartCoroutine(Wait());
-            if (targetEnemiesOrAttackInRadius) TargetedShoot();
-            else ShootInRadius();
         }
-        
+
     }
 
     public Transform ReturnFurthestEnemy()
@@ -95,7 +95,6 @@ public class TowerShoot : MonoBehaviour
             if (currentFireTime <= 0)
             {
                 SpawnProjectile();
-                OnShoot?.Invoke();
             }
         }
     }
@@ -106,14 +105,16 @@ public class TowerShoot : MonoBehaviour
         {
             foreach (Transform t in enemyList) t.GetComponent<EnemyHealth>().DecreaseHealth(damage);
             currentFireTime = fireRate;
-            OnShoot?.Invoke();
         }
     }
 
     public IEnumerator Wait()
     {
+        OnShoot?.Invoke();
         waiting = true;
         yield return new WaitForSeconds(attackDelay);
+        if (targetEnemiesOrAttackInRadius) TargetedShoot();
+        else ShootInRadius();
         waiting = false;
     }
 }
