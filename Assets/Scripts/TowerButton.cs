@@ -6,6 +6,7 @@ using TMPro;
 public class TowerButton : MonoBehaviour
 {
     [SerializeField] TowerShoot tower;
+    public TowerShoot Tower { get { return tower; } }
     Button button;
     TextMeshProUGUI text;
     private void Start()
