@@ -22,12 +22,6 @@ public class TowerShoot : MonoBehaviour
     [SerializeField] List<float> resourceCostsAfterBuildPhase;
     public List<float> ResourceCostsAfterBuildPhase { get { return resourceCostsAfterBuildPhase; } }
 
-    [SerializeField] float cost;
-    [SerializeField] float costAfterBuildPhase;
-    public float Cost { get { return cost; } }
-    public float CostAfterBuildPhase { get { return costAfterBuildPhase; } }
-
-
     [SerializeField] bool stop;
     [SerializeField] bool targetEnemiesOrAttackInRadius;
 

@@ -23,7 +23,7 @@ public class TowerButton : MonoBehaviour
     {
         var r = SpawnTower.instance.BuildPhase ? tower.ResourceCosts : tower.ResourceCostsAfterBuildPhase;
 
-        for (int i = 0; i < SpawnTower.resources.Count; i++)
+        for (int i = 0; i < r.Count; i++)
         {
             if (SpawnTower.resources[i] < r[i])
             {

@@ -288,7 +288,11 @@ MonoBehaviour:
   - 10
   - 0
   - 0
-  resourceCostsAfterBuildPhase: []
+  resourceCostsAfterBuildPhase:
+  - 20
+  - 10
+  - 0
+  - 0
   cost: 30
   costAfterBuildPhase: 50
   stop: 0

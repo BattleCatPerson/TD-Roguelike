@@ -5263,7 +5263,11 @@ MonoBehaviour:
   - 10
   - 10
   - 10
-  resourceCostsAfterBuildPhase: []
+  resourceCostsAfterBuildPhase:
+  - 20
+  - 10
+  - 10
+  - 10
   cost: 100
   costAfterBuildPhase: 150
   stop: 0
