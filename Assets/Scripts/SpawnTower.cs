@@ -68,8 +68,8 @@ public class SpawnTower : MonoBehaviour
     {
         if (stop) return;
         stop = true;
-        towerPanel.SetActive(false);
-        statusPanel.SetActive(false);
+        if (towerPanel) towerPanel.SetActive(false);
+        if (statusPanel) statusPanel.SetActive(false);
     }
 
     public void StopBuildPhase()

@@ -62,6 +62,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fee5cc8048735de4f8e61ae8af8f7b33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
+  lifetime: 1
+  pierce: 0
 --- !u!1 &8515347593211746779
 GameObject:
   m_ObjectHideFlags: 0

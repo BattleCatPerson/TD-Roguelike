@@ -335,7 +335,6 @@ MonoBehaviour:
   - Stone
   - Iron
   - Gold
-  hoveredUI: {fileID: 0}
 --- !u!1001 &93219111
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1040,6 +1039,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
+  - {fileID: 11400000, guid: 3a832b3e8b7812a4b8102c07054f4c35, type: 2}
+  - {fileID: 11400000, guid: 3a832b3e8b7812a4b8102c07054f4c35, type: 2}
+  - {fileID: 11400000, guid: 3a832b3e8b7812a4b8102c07054f4c35, type: 2}
+  - {fileID: 11400000, guid: 3a832b3e8b7812a4b8102c07054f4c35, type: 2}
   - {fileID: 11400000, guid: 3a832b3e8b7812a4b8102c07054f4c35, type: 2}
   currentWaveIndex: 0
   currentWave: {fileID: 0}
@@ -2793,8 +2796,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -300, y: 0.0025024414}
-  m_SizeDelta: {x: -600, y: 0.0050354}
+  m_AnchoredPosition: {x: -300, y: 0.002746582}
+  m_SizeDelta: {x: -600, y: 0.0054932}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &816676322
 MonoBehaviour:
@@ -2833,7 +2836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
