@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 0}
-  range: 20
+  range: 10
   fireRate: 2
   projectileSpeed: 0
   damage: 10
