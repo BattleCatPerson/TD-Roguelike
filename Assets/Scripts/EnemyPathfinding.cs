@@ -9,6 +9,7 @@ public class EnemyPathfinding : MonoBehaviour
     [SerializeField] List<Transform> path;
     [SerializeField] int pathIndex;
     [SerializeField] float moveSpeed;
+    public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
     [SerializeField] Transform currentDestination;
     [SerializeField] float distanceTraveled;
     [SerializeField] float height;
@@ -17,7 +18,7 @@ public class EnemyPathfinding : MonoBehaviour
     public float DistanceTraveled { get { return distanceTraveled; } }
     private void Awake()
     {
-        enemies.Add(transform);    
+        enemies.Add(transform);
     }
 
     private void OnDestroy()
@@ -57,5 +58,13 @@ public class EnemyPathfinding : MonoBehaviour
             return;
         }
         transform.position = Vector3.MoveTowards(transform.position, position, moveSpeed * Time.deltaTime);
+    }
+
+    public IEnumerator Slow(float percent, float duration)
+    {
+        print("slowing");
+        moveSpeed *= (1 - (percent / 100));
+        yield return new WaitForSeconds(duration);
+        moveSpeed /= (1 - (percent / 100));
     }
 }

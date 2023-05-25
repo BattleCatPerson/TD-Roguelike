@@ -15,6 +15,7 @@ public class TowerShoot : MonoBehaviour
     [SerializeField] Transform spawnPoint;
     [SerializeField, Tooltip("Only assign if the tower does not attack in a radius")] Transform nozzle;
     [SerializeField] List<Transform> enemyList;
+    public List<Transform> EnemyList { get { return enemyList; } }
 
     [Header("Order: Wood, Stone, Iron, Gold (add more later)")]
     [SerializeField] List<float> resourceCosts;
