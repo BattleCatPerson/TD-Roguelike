@@ -54,7 +54,7 @@ MonoBehaviour:
   range: 5
   fireRate: 2
   projectileSpeed: 0
-  damage: 5
+  damage: 10
   spawnPoint: {fileID: 0}
   nozzle: {fileID: 0}
   enemyList: []
@@ -83,8 +83,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c0e8642e6b16e1409687112f0019904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slowPercentage: 50
-  slowDuration: 3
+  slowPercentage: 100
+  slowDuration: 1.5
   tower: {fileID: 0}
   slowedEnemies: []
 --- !u!95 &3873079653994487033

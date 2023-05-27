@@ -40,7 +40,7 @@ public class EnemyPathfinding : MonoBehaviour
             HealthManager.health = Mathf.Clamp(HealthManager.health, 0, Mathf.Infinity);
             Destroy(gameObject);
         }
-        MoveTowardsCurrentPoint();
+        if (moveSpeed > 0) MoveTowardsCurrentPoint();
         if (pathIndex < path.Count)
         {
             distanceTraveled += moveSpeed * Time.deltaTime;
@@ -49,7 +49,7 @@ public class EnemyPathfinding : MonoBehaviour
 
     public void MoveTowardsCurrentPoint()
     {
-        if (pathIndex >= path.Count) return;
+        if (pathIndex >= path.Count || moveSpeed <= 0) return;
         currentDestination = path[pathIndex];
         Vector3 position = new(currentDestination.position.x, currentDestination.position.y + height, currentDestination.position.z);
         if (Vector3.Distance(transform.position, position) < 0.01f)
