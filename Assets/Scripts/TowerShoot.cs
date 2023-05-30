@@ -12,7 +12,10 @@ public class TowerShoot : MonoBehaviour
     [SerializeField] float damage;
 
     private float currentFireTime;
-    [SerializeField] Transform spawnPoint;
+    [SerializeField] Transform[] spawnPoints;
+    [SerializeField] int attackAmount;
+    [SerializeField] float timeBetweenAttacks;
+
     [SerializeField, Tooltip("Only assign if the tower does not attack in a radius")] Transform nozzle;
     [SerializeField] List<Transform> enemyList;
     public List<Transform> EnemyList { get { return enemyList; } }
@@ -28,6 +31,7 @@ public class TowerShoot : MonoBehaviour
 
     [SerializeField] float attackDelay;
     bool waiting;
+    bool attackWaiting;
     public event Action OnShoot;
     private void Awake()
     {
@@ -51,10 +55,9 @@ public class TowerShoot : MonoBehaviour
         if (currentFireTime > 0) currentFireTime -= Time.deltaTime;
         if (currentFireTime <= 0 && enemyList.Count > 0)
         {
-            if (waiting) return;
-            StartCoroutine(Wait());
+            if (waiting || attackWaiting) return;
+            StartCoroutine(WaitAndShoot(attackDelay));
         }
-
     }
 
     public Transform ReturnFurthestEnemy()
@@ -76,11 +79,34 @@ public class TowerShoot : MonoBehaviour
 
     public void SpawnProjectile()
     {
-        GameObject clone = Instantiate(projectile, spawnPoint.position, spawnPoint.rotation);
-        Rigidbody rb = clone.GetComponent<Rigidbody>();
-        TowerProjectile tp = clone.GetComponent<TowerProjectile>();
-        rb.velocity = spawnPoint.forward * projectileSpeed;
-        tp.SetDamage(damage);
+        foreach (Transform spawnPoint in spawnPoints)
+        {
+            GameObject clone = Instantiate(projectile, spawnPoint.position, spawnPoint.rotation);
+            Rigidbody rb = clone.GetComponent<Rigidbody>();
+            TowerProjectile tp = clone.GetComponent<TowerProjectile>();
+            rb.velocity = spawnPoint.forward * projectileSpeed;
+            tp.SetDamage(damage);
+        }
+
+        currentFireTime = fireRate;
+    }
+
+    public IEnumerator SpawnProjectileDelayed()
+    {
+        attackWaiting = true;
+        for (int i = 0; i < attackAmount; i++)
+        {
+            foreach (Transform spawnPoint in spawnPoints)
+            {
+                GameObject clone = Instantiate(projectile, spawnPoint.position, spawnPoint.rotation);
+                Rigidbody rb = clone.GetComponent<Rigidbody>();
+                TowerProjectile tp = clone.GetComponent<TowerProjectile>();
+                rb.velocity = spawnPoint.forward * projectileSpeed;
+                tp.SetDamage(damage);
+            }
+            yield return new WaitForSeconds(timeBetweenAttacks);
+        }
+        attackWaiting = false;
         currentFireTime = fireRate;
     }
 
@@ -91,9 +117,10 @@ public class TowerShoot : MonoBehaviour
         if (enemyList.Count > 0)
         {
             nozzle.LookAt(ReturnFurthestEnemy());
-            if (currentFireTime <= 0)
+            if (currentFireTime <= 0 && !attackWaiting)
             {
-                SpawnProjectile();
+                if (attackAmount <= 1) SpawnProjectile();
+                else StartCoroutine(SpawnProjectileDelayed());
             }
         }
     }
@@ -107,11 +134,18 @@ public class TowerShoot : MonoBehaviour
         }
     }
 
-    public IEnumerator Wait()
+    public IEnumerator Wait(float t)
+    {
+        attackWaiting = true;
+        yield return new WaitForSeconds(t);
+        attackWaiting = false;
+    }
+
+    public IEnumerator WaitAndShoot(float t)
     {
         OnShoot?.Invoke();
         waiting = true;
-        yield return new WaitForSeconds(attackDelay);
+        yield return new WaitForSeconds(t);
         if (targetEnemiesOrAttackInRadius) TargetedShoot();
         else ShootInRadius();
         waiting = false;

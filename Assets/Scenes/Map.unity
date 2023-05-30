@@ -551,7 +551,7 @@ PrefabInstance:
         type: 3}
       propertyPath: commonTowers.Array.data[0]
       value: 
-      objectReference: {fileID: 4117499834562203712, guid: 231af5a0189d2894d879d7b8294b8801,
+      objectReference: {fileID: 4117499834562203712, guid: bc27cc85be3406d44af66b9bf318608b,
         type: 3}
     - target: {fileID: 1473695436190271501, guid: affc5507407a4c24babb16243e0879ef,
         type: 3}

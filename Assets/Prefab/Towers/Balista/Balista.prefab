@@ -108,7 +108,8 @@ MonoBehaviour:
   fireRate: 3
   projectileSpeed: 50
   damage: 100
-  spawnPoint: {fileID: 7572824508565788578}
+  spawnPoints:
+  - {fileID: 7572824508565788578}
   nozzle: {fileID: 150343739846034187}
   enemyList: []
   resourceCosts:
