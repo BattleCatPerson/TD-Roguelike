@@ -9,16 +9,19 @@ public class EnemyPathfinding : MonoBehaviour
     [SerializeField] List<Transform> path;
     [SerializeField] int pathIndex;
     [SerializeField] float moveSpeed;
+    float defaultMoveSpeed;
     public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
     [SerializeField] Transform currentDestination;
     [SerializeField] float distanceTraveled;
     [SerializeField] float height;
 
     [SerializeField] float healthRemoved;
+
     public float DistanceTraveled { get { return distanceTraveled; } }
     private void Awake()
     {
         enemies.Add(transform);
+        defaultMoveSpeed = moveSpeed;
     }
 
     private void OnDestroy()
@@ -63,8 +66,8 @@ public class EnemyPathfinding : MonoBehaviour
     public IEnumerator Slow(float percent, float duration)
     {
         print("slowing");
-        moveSpeed *= (1 - (percent / 100));
+        moveSpeed = defaultMoveSpeed * (1 - (percent / 100));
         yield return new WaitForSeconds(duration);
-        moveSpeed /= (1 - (percent / 100));
+        moveSpeed = defaultMoveSpeed;
     }
 }

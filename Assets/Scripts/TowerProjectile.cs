@@ -6,6 +6,7 @@ using UnityEngine;
 public class TowerProjectile : MonoBehaviour
 {
     [SerializeField] float damage;
+    public float Damage => damage;
     [SerializeField] float lifetime;
     [SerializeField, Header("Set colliders to triggers for piercing")] int pierce;
     private void Start()

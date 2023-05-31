@@ -10,7 +10,7 @@ public class TowerShoot : MonoBehaviour
     [SerializeField] float fireRate;
     [SerializeField] float projectileSpeed;
     [SerializeField] float damage;
-
+    public void SetDamage(float d) => damage = d;
     private float currentFireTime;
     [SerializeField] Transform[] spawnPoints;
     [SerializeField] int attackAmount;
@@ -19,6 +19,9 @@ public class TowerShoot : MonoBehaviour
     [SerializeField, Tooltip("Only assign if the tower does not attack in a radius")] Transform nozzle;
     [SerializeField] List<Transform> enemyList;
     public List<Transform> EnemyList { get { return enemyList; } }
+    
+    [SerializeField] Transform targetedEnemy;
+    public Transform TargetedEnemy { get { return targetedEnemy; } }
 
     [Header("Order: Wood, Stone, Iron, Gold (add more later)")]
     [SerializeField] List<float> resourceCosts;
@@ -27,7 +30,7 @@ public class TowerShoot : MonoBehaviour
     public List<float> ResourceCostsAfterBuildPhase { get { return resourceCostsAfterBuildPhase; } }
 
     [SerializeField] bool stop;
-    [SerializeField] bool targetEnemiesOrAttackInRadius;
+    [SerializeField] bool targetEnemiesOrAttackInRadius = true;
 
     [SerializeField] float attackDelay;
     bool waiting;
@@ -116,7 +119,8 @@ public class TowerShoot : MonoBehaviour
     {
         if (enemyList.Count > 0)
         {
-            nozzle.LookAt(ReturnFurthestEnemy());
+            targetedEnemy = ReturnFurthestEnemy();
+            if (nozzle) nozzle.LookAt(targetedEnemy);
             if (currentFireTime <= 0 && !attackWaiting)
             {
                 if (attackAmount <= 1) SpawnProjectile();
