@@ -65,6 +65,7 @@ public class TowerShoot : MonoBehaviour
 
     public Transform ReturnFurthestEnemy()
     {
+        if (enemyList.Count == 0) return null;
         float maxDistance = enemyList[0].GetComponent<EnemyPathfinding>().DistanceTraveled;
         Transform furthest = enemyList[0];
         for (int i = 1; i < enemyList.Count; i++)

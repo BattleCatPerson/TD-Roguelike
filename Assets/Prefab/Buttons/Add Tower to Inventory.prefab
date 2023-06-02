@@ -303,5 +303,11 @@ MonoBehaviour:
   commonTowers:
   - {fileID: 4117499834562203712, guid: 42c352f3834b7c840bd31998f68adb28, type: 3}
   - {fileID: 4117499834562203712, guid: d675949aa78163441a9bf7b94ec973ef, type: 3}
+  - {fileID: 4117499834562203712, guid: 43d1ce9fea432ea47be2e0209b4cd1bd, type: 3}
+  - {fileID: 4117499834562203712, guid: ee5fb1ba33b415e4c9373ee75076f14b, type: 3}
+  - {fileID: 4117499834562203712, guid: bc27cc85be3406d44af66b9bf318608b, type: 3}
+  - {fileID: 4117499834562203712, guid: 7002d8b5ff3924944b05994544f1afe2, type: 3}
+  - {fileID: 4117499834562203712, guid: 231af5a0189d2894d879d7b8294b8801, type: 3}
+  - {fileID: 4117499834562203712, guid: 39fb22cf3ad7942428c1e1865460e71d, type: 3}
   selectedTower: {fileID: 0}
   added: 0

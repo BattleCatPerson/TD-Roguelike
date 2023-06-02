@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class TowerProjectile : MonoBehaviour
     public float Damage => damage;
     [SerializeField] float lifetime;
     [SerializeField, Header("Set colliders to triggers for piercing")] int pierce;
+
+    public event Action onDestroy;
     private void Start()
     {
         Destroy(gameObject, lifetime);
@@ -30,4 +33,6 @@ public class TowerProjectile : MonoBehaviour
     }
 
     public void SetDamage(float d) => damage = d;
+
+    private void OnDestroy() => onDestroy?.Invoke();
 }
