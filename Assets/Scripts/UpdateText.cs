@@ -18,6 +18,7 @@ public class UpdateText : MonoBehaviour
 
     void Update()
     {
+        if (!SpawnTower.instance) return;
         if (nameOrder.Count == 0) return;
         for (int i = 0; i < SpawnTower.resources.Count; i++) texts[i].text = nameOrder[i] + ": " + SpawnTower.resources[i];
         if (HoverUI.hoveredTower == null)

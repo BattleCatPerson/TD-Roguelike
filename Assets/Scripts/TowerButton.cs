@@ -22,6 +22,7 @@ public class TowerButton : MonoBehaviour
 
     private void Update()
     {
+        if (!SpawnTower.instance) return;
         var r = SpawnTower.instance.BuildPhase ? tower.ResourceCosts : tower.ResourceCostsAfterBuildPhase;
 
         for (int i = 0; i < r.Count; i++)

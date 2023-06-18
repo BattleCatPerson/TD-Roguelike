@@ -239,6 +239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8119921376970791042}
   - component: {fileID: 5022754264447359568}
+  - component: {fileID: 4040654262044429489}
   m_Layer: 0
   m_Name: Placeholder Tower
   m_TagString: Untagged
@@ -286,6 +287,7 @@ MonoBehaviour:
   timeBetweenAttacks: 0
   nozzle: {fileID: 5841885110435582231}
   enemyList: []
+  targetedEnemy: {fileID: 0}
   resourceCosts:
   - 10
   - 10
@@ -299,6 +301,27 @@ MonoBehaviour:
   stop: 0
   targetEnemiesOrAttackInRadius: 1
   attackDelay: 0
+  element: {fileID: 0}
+--- !u!114 &4040654262044429489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8119921376970791043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5905399df3902a14d84fafb05ae991f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  regular: 1
+  sharp: 0
+  magic: 0
+  normal: 0
+  fire: 1
+  water: 0
+  electric: 0
+  grass: 0
 --- !u!1 &8830999086866249955
 GameObject:
   m_ObjectHideFlags: 0

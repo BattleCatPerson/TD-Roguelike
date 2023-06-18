@@ -36,9 +36,12 @@ public class TowerShoot : MonoBehaviour
     bool waiting;
     bool attackWaiting;
     public event Action OnShoot;
+
+    public TowerElement element;
     private void Awake()
     {
         HealthManager.onDeath += OnDeath;
+        element = GetComponent<TowerElement>();
     }
     void Start()
     {
@@ -66,10 +69,13 @@ public class TowerShoot : MonoBehaviour
     public Transform ReturnFurthestEnemy()
     {
         if (enemyList.Count == 0) return null;
-        float maxDistance = enemyList[0].GetComponent<EnemyPathfinding>().DistanceTraveled;
-        Transform furthest = enemyList[0];
-        for (int i = 1; i < enemyList.Count; i++)
+        //float maxDistance = enemyList[0].GetComponent<EnemyPathfinding>().DistanceTraveled;
+        float maxDistance = -1;
+        Transform furthest = null;
+        //Transform furthest = enemyList[0];
+        for (int i = 0; i < enemyList.Count; i++)
         {
+            if (enemyList[i] == null) continue;
             Transform currentTransform = enemyList[i];
             float distance = currentTransform.GetComponent<EnemyPathfinding>().DistanceTraveled;
             if (distance > maxDistance)
@@ -90,6 +96,7 @@ public class TowerShoot : MonoBehaviour
             TowerProjectile tp = clone.GetComponent<TowerProjectile>();
             rb.velocity = spawnPoint.forward * projectileSpeed;
             tp.SetDamage(damage);
+            tp.parent = this;
         }
 
         currentFireTime = fireRate;
@@ -113,15 +120,15 @@ public class TowerShoot : MonoBehaviour
         attackWaiting = false;
         currentFireTime = fireRate;
     }
-
+    
     public void OnDeath() => stop = true;
 
     public void TargetedShoot()
     {
         if (enemyList.Count > 0)
         {
-            targetedEnemy = ReturnFurthestEnemy();
-            if (nozzle) nozzle.LookAt(targetedEnemy);
+            Vector3 targetedEnemy = ReturnFurthestEnemy().position;
+            if (nozzle) nozzle.LookAt(new Vector3(targetedEnemy.x, transform.position.y, targetedEnemy.z));
             if (currentFireTime <= 0 && !attackWaiting)
             {
                 if (attackAmount <= 1) SpawnProjectile();

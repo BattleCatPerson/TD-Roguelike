@@ -12,13 +12,23 @@ public class TowerProjectile : MonoBehaviour
     [SerializeField, Header("Set colliders to triggers for piercing")] int pierce;
 
     public event Action onDestroy;
+
+    public TowerShoot parent;
     private void Start()
     {
         Destroy(gameObject, lifetime);
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.TryGetComponent<EnemyHealth>(out EnemyHealth e)) e.DecreaseHealth(damage);
+
+        if (collision.gameObject.TryGetComponent<EnemyHealth>(out EnemyHealth e))
+        {
+            float damageModifier = damage;
+            if (parent.element.sharp && e.element.bouncy || parent.element.magic && e.element.hard) damageModifier *= 2;
+            if (parent.element.fire && e.element.grass || parent.element.water && e.element.fire || parent.element.electric && e.element.water || parent.element.water) damageModifier *= 2;
+            e.DecreaseHealth(damageModifier);
+            print(damageModifier);
+        }
         Destroy(gameObject);
     }
 
@@ -26,7 +36,11 @@ public class TowerProjectile : MonoBehaviour
     {
         if (other.TryGetComponent<EnemyHealth>(out EnemyHealth e))
         {
-            e.DecreaseHealth(damage);
+            float damageModifier = damage;
+            if (parent.element.sharp && e.element.bouncy || parent.element.magic && e.element.hard) damageModifier *= 2;
+            if (parent.element.fire && e.element.grass || parent.element.water && e.element.fire || parent.element.electric && e.element.water || parent.element.water) damageModifier *= 2;
+            e.DecreaseHealth(damageModifier);
+            print(damageModifier);
             pierce--;
         }
         if (pierce == 0) Destroy(gameObject);
