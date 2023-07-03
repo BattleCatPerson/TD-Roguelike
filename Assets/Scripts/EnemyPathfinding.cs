@@ -18,6 +18,10 @@ public class EnemyPathfinding : MonoBehaviour
     [SerializeField] float healthRemoved;
 
     public float DistanceTraveled { get { return distanceTraveled; } }
+
+
+    [SerializeField] int rank = 1;
+    public int Rank => rank;
     private void Awake()
     {
         enemies.Add(transform);

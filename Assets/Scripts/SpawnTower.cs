@@ -32,7 +32,7 @@ public class SpawnTower : MonoBehaviour
 
     private void Update()
     {
-        if (stop) return;
+        if (stop || EnemySpawner.doneSpawning) return;
         if (currentTower != null)
         {
             currentTowerInspector = currentTower;

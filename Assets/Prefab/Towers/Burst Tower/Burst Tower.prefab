@@ -599,6 +599,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4758944765911631129}
   - component: {fileID: 5235638884438823507}
+  - component: {fileID: 5181682299626261517}
   m_Layer: 0
   m_Name: Burst Tower
   m_TagString: Untagged
@@ -646,6 +647,7 @@ MonoBehaviour:
   timeBetweenAttacks: 0.1
   nozzle: {fileID: 6456313052876572725}
   enemyList: []
+  targetedEnemy: {fileID: 0}
   resourceCosts:
   - 10
   - 20
@@ -659,3 +661,24 @@ MonoBehaviour:
   stop: 0
   targetEnemiesOrAttackInRadius: 1
   attackDelay: 0
+  element: {fileID: 0}
+--- !u!114 &5181682299626261517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8510178321114047786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5905399df3902a14d84fafb05ae991f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  regular: 1
+  sharp: 0
+  magic: 0
+  normal: 1
+  fire: 0
+  water: 0
+  electric: 0
+  grass: 0

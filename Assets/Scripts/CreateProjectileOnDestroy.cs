@@ -10,5 +10,9 @@ public class CreateProjectileOnDestroy : MonoBehaviour
         GetComponent<TowerProjectile>().onDestroy += Spawn;
     }
 
-    public void Spawn() => Instantiate(projectile, transform.position, transform.rotation);
+    public void Spawn()
+    {
+        var clone = Instantiate(projectile, transform.position, transform.rotation);
+        clone.GetComponent<DamageEnemiesWithinTrigger>().parent = GetComponent<TowerProjectile>().parent;
+    }
 }

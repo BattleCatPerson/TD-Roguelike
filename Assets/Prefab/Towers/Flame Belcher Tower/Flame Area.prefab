@@ -47,9 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5ab4e22bfd59c64da468838a0ed6e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePerSecond: 50
+  damagePerInterval: 1
+  timeInterval: 0.01
   enemies: []
   lifeTime: 5
+  parent: {fileID: 0}
 --- !u!54 &7039346090047373074
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -22,7 +22,7 @@ public class MapManager : MonoBehaviour
     [SerializeField] int options;
     private void Awake()
     {
-        if (Rounds == -1) Rounds = rounds;
+        if (Rounds == -1) Rounds = 0;
         instance = this;
         if (HealthManager.health == -1 && !started)
         {
@@ -49,7 +49,7 @@ public class MapManager : MonoBehaviour
         //    }
         //}
 
-        if (Rounds > 0)
+        if (Rounds <= rounds)
         {
             for (int i = 0; i < options; i++)
             {
@@ -64,7 +64,7 @@ public class MapManager : MonoBehaviour
         //int index = rows[row + 1].buttons.IndexOf(b);
         //col = index;
         //row++;
-        Rounds--;
+        Rounds++;
         SceneManager.LoadScene(battleScene);
     }
 }

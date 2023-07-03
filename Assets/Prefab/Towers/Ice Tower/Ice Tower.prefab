@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3873079653994487033}
   - component: {fileID: 7499890640358550255}
   - component: {fileID: 4393450791351432883}
+  - component: {fileID: 5627882208328343541}
   m_Layer: 0
   m_Name: Ice Tower
   m_TagString: Untagged
@@ -60,6 +61,7 @@ MonoBehaviour:
   timeBetweenAttacks: 0
   nozzle: {fileID: 0}
   enemyList: []
+  targetedEnemy: {fileID: 0}
   resourceCosts:
   - 10
   - 10
@@ -73,6 +75,7 @@ MonoBehaviour:
   stop: 0
   targetEnemiesOrAttackInRadius: 0
   attackDelay: 0.5
+  element: {fileID: 0}
 --- !u!114 &6598388577550176655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,6 +141,26 @@ MonoBehaviour:
   anim: {fileID: 0}
   trigger: Shoot
   tower: {fileID: 0}
+--- !u!114 &5627882208328343541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985691019612685787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5905399df3902a14d84fafb05ae991f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  regular: 0
+  sharp: 0
+  magic: 1
+  normal: 0
+  fire: 0
+  water: 1
+  electric: 0
+  grass: 0
 --- !u!1 &4886605157962985478
 GameObject:
   m_ObjectHideFlags: 0

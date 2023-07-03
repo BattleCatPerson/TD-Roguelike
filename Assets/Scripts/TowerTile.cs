@@ -6,6 +6,7 @@ public class TowerTile : MonoBehaviour
 {
     public bool isEnabled;
     [SerializeField] TowerShoot currentTower;
+    public TowerShoot CurrentTower => currentTower;
     [SerializeField] Transform towerSpawn;
 
     public void SpawnTower(TowerShoot tower)

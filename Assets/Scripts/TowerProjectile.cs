@@ -14,33 +14,26 @@ public class TowerProjectile : MonoBehaviour
     public event Action onDestroy;
 
     public TowerShoot parent;
+
+    int collisionCounter;
     private void Start()
     {
+        collisionCounter = 0;
         Destroy(gameObject, lifetime);
     }
     private void OnCollisionEnter(Collision collision)
     {
-
-        if (collision.gameObject.TryGetComponent<EnemyHealth>(out EnemyHealth e))
-        {
-            float damageModifier = damage;
-            if (parent.element.sharp && e.element.bouncy || parent.element.magic && e.element.hard) damageModifier *= 2;
-            if (parent.element.fire && e.element.grass || parent.element.water && e.element.fire || parent.element.electric && e.element.water || parent.element.water) damageModifier *= 2;
-            e.DecreaseHealth(damageModifier);
-            print(damageModifier);
-        }
+        collisionCounter++;
+        if (collision.gameObject.TryGetComponent<EnemyHealth>(out EnemyHealth e) && collisionCounter == 1) DealDamage(e);
         Destroy(gameObject);
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<EnemyHealth>(out EnemyHealth e))
         {
-            float damageModifier = damage;
-            if (parent.element.sharp && e.element.bouncy || parent.element.magic && e.element.hard) damageModifier *= 2;
-            if (parent.element.fire && e.element.grass || parent.element.water && e.element.fire || parent.element.electric && e.element.water || parent.element.water) damageModifier *= 2;
-            e.DecreaseHealth(damageModifier);
-            print(damageModifier);
+            DealDamage(e);
             pierce--;
         }
         if (pierce == 0) Destroy(gameObject);
@@ -49,4 +42,22 @@ public class TowerProjectile : MonoBehaviour
     public void SetDamage(float d) => damage = d;
 
     private void OnDestroy() => onDestroy?.Invoke();
+
+    public void DealDamage(EnemyHealth e)
+    {
+        float damageModifier = damage;
+        if (parent.element.sharp && e.element.bouncy || parent.element.magic && e.element.hard) damageModifier *= 2;
+        if (parent.element.fire && e.element.grass || parent.element.water && e.element.fire || parent.element.electric && e.element.water || parent.element.water) damageModifier *= 2;
+        if (damageModifier >= e.Health)
+        {
+            print(e.Health);
+            parent.TotalDamage += e.Health;
+            e.DecreaseHealth(e.Health);
+        }
+        else
+        {
+            parent.TotalDamage += damageModifier;
+            e.DecreaseHealth(damageModifier);
+        }
+    }
 }

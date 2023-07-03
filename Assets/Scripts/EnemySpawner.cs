@@ -5,9 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public static bool doneSpawning;
+
     [SerializeField] List<EnemyWave> waves;
     [SerializeField] int currentWaveIndex;
     [SerializeField] EnemyWave currentWave;
+    [SerializeField] float timeBetweenWaves;
+    [SerializeField] float timeBetweenWavesCurrent;
 
     [SerializeField] List<EnemyPathfinding> currentEnemies;
     [SerializeField] float currentTimeBetweenEnemies;
@@ -19,6 +23,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameObject continuePanel;
     private void Awake()
     {
+        doneSpawning = false;
         HealthManager.onDeath += OnDeath;
     }
     void Start()
@@ -26,6 +31,7 @@ public class EnemySpawner : MonoBehaviour
         continuePanel.SetActive(false);
         transform.position = new(CarvePath.Path[0].position.x, CarvePath.Path[0].position.y + 2, CarvePath.Path[0].position.z);
         ChangeWave();
+        timeBetweenWavesCurrent = timeBetweenWaves;
     }
 
     void Update()
@@ -33,14 +39,22 @@ public class EnemySpawner : MonoBehaviour
         if (stop || SpawnTower.instance.BuildPhase) return;
         if (currentWaveIndex >= waves.Count && EnemyPathfinding.enemies.Count == 0 && HealthManager.health > 0)
         {
+            doneSpawning = true;
             continuePanel.SetActive(true);
             return;
         }
         if (currentEnemyIndex >= currentEnemies.Count)
         {
-            if (currentWaveIndex + 1> waves.Count) return;
-            currentWaveIndex++;
-            ChangeWave();
+            if (timeBetweenWavesCurrent <= 0 || currentWaveIndex == waves.Count - 1)
+            {
+                timeBetweenWavesCurrent = timeBetweenWaves;
+                currentWaveIndex++;
+                ChangeWave();
+            }
+            else
+            {
+                timeBetweenWavesCurrent -= Time.deltaTime;
+            }
         }
         if (countdown > 0) countdown -= Time.deltaTime;
         else if (currentEnemyIndex < currentEnemies.Count)

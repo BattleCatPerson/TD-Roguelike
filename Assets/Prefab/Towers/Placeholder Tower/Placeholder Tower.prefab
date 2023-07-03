@@ -302,6 +302,8 @@ MonoBehaviour:
   targetEnemiesOrAttackInRadius: 1
   attackDelay: 0
   element: {fileID: 0}
+  totalDamage: 0
+  target: 3
 --- !u!114 &4040654262044429489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,8 +319,8 @@ MonoBehaviour:
   regular: 1
   sharp: 0
   magic: 0
-  normal: 0
-  fire: 1
+  normal: 1
+  fire: 0
   water: 0
   electric: 0
   grass: 0

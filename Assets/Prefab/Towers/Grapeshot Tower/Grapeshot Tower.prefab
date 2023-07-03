@@ -502,6 +502,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3599791103687327229}
   - component: {fileID: 4868499437859643556}
+  - component: {fileID: 1334773697252312553}
   m_Layer: 0
   m_Name: Grapeshot Tower
   m_TagString: Untagged
@@ -551,6 +552,7 @@ MonoBehaviour:
   timeBetweenAttacks: 0
   nozzle: {fileID: 4877979005849114492}
   enemyList: []
+  targetedEnemy: {fileID: 0}
   resourceCosts:
   - 10
   - 10
@@ -564,6 +566,27 @@ MonoBehaviour:
   stop: 0
   targetEnemiesOrAttackInRadius: 1
   attackDelay: 0
+  element: {fileID: 0}
+--- !u!114 &1334773697252312553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5291567184664031926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5905399df3902a14d84fafb05ae991f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  regular: 0
+  sharp: 1
+  magic: 0
+  normal: 1
+  fire: 0
+  water: 0
+  electric: 0
+  grass: 0
 --- !u!1 &8490077233726365526
 GameObject:
   m_ObjectHideFlags: 0

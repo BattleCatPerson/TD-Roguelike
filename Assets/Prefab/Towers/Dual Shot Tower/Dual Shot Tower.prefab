@@ -108,6 +108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3828715052122540313}
   - component: {fileID: 4461598112688110504}
+  - component: {fileID: 6899846428367917763}
   m_Layer: 0
   m_Name: Dual Shot Tower
   m_TagString: Untagged
@@ -170,6 +171,27 @@ MonoBehaviour:
   stop: 0
   targetEnemiesOrAttackInRadius: 1
   attackDelay: 0
+  element: {fileID: 0}
+--- !u!114 &6899846428367917763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4315122649340554896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5905399df3902a14d84fafb05ae991f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  regular: 1
+  sharp: 0
+  magic: 0
+  normal: 1
+  fire: 0
+  water: 0
+  electric: 0
+  grass: 0
 --- !u!1 &4727494531239276328
 GameObject:
   m_ObjectHideFlags: 0

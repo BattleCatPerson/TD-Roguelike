@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8277105178477188573}
   - component: {fileID: 6793513016030381338}
   m_Layer: 3
-  m_Name: Enemy
+  m_Name: Fast Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 1f3a672c35ef52c49bfe82a7fbb6a93c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: []
   pathIndex: 0
-  moveSpeed: 5
+  moveSpeed: 15
   currentDestination: {fileID: 0}
   distanceTraveled: 0
   height: 2
@@ -133,9 +133,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65a9c9a9810d3fb4f9f99c469fa4d7f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
+  health: 5
   element: {fileID: 6793513016030381338}
-  rank: 2
+  rank: 1
 --- !u!114 &6793513016030381338
 MonoBehaviour:
   m_ObjectHideFlags: 0

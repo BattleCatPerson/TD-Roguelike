@@ -5213,6 +5213,7 @@ GameObject:
   - component: {fileID: 2355662918430306904}
   - component: {fileID: 643217383259490263}
   - component: {fileID: 1471976651816387530}
+  - component: {fileID: 2721117201167736744}
   m_Layer: 0
   m_Name: Lightning Rod
   m_TagString: Untagged
@@ -5255,9 +5256,12 @@ MonoBehaviour:
   fireRate: 3
   projectileSpeed: 0
   damage: 100
-  spawnPoint: {fileID: 0}
+  spawnPoints: []
+  attackAmount: 0
+  timeBetweenAttacks: 0
   nozzle: {fileID: 0}
   enemyList: []
+  targetedEnemy: {fileID: 0}
   resourceCosts:
   - 10
   - 10
@@ -5268,14 +5272,13 @@ MonoBehaviour:
   - 10
   - 10
   - 10
-  cost: 100
-  costAfterBuildPhase: 150
   stop: 0
   targetEnemiesOrAttackInRadius: 0
   attackDelay: 1
+  element: {fileID: 0}
 --- !u!95 &2355662918430306904
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5292,7 +5295,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &643217383259490263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5321,6 +5325,26 @@ MonoBehaviour:
   anim: {fileID: 0}
   trigger: Shoot
   tower: {fileID: 0}
+--- !u!114 &2721117201167736744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7297090141999836149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5905399df3902a14d84fafb05ae991f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  regular: 0
+  sharp: 0
+  magic: 1
+  normal: 0
+  fire: 0
+  water: 0
+  electric: 1
+  grass: 0
 --- !u!1001 &1944732433997259420
 PrefabInstance:
   m_ObjectHideFlags: 0
