@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+public enum Targeting
+{
+    None = 0,
+    First = 1,
+    Last = 2,
+    Strong = 3,
+    Close = 4
+}
 public class TowerShoot : MonoBehaviour
 {
-    [Flags]
-    public enum Targeting
-    {
-        None = 0,
-        First = 1,
-        Last = 2,
-        Strong = 3,
-        Close = 4
-    }
    
     [SerializeField] GameObject projectile;
     [SerializeField] float range;
@@ -41,6 +40,7 @@ public class TowerShoot : MonoBehaviour
 
     [SerializeField] bool stop;
     [SerializeField] bool targetEnemiesOrAttackInRadius = true;
+    public bool TargetEnemiesOrAttackInRadius => targetEnemiesOrAttackInRadius;
 
     [SerializeField] float attackDelay;
     bool waiting;

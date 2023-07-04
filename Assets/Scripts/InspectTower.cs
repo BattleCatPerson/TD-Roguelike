@@ -11,7 +11,7 @@ public class InspectTower : MonoBehaviour
     [SerializeField] GameObject range;
 
     [SerializeField] List<TextMeshProUGUI> panelTexts;
-
+    [SerializeField] List<GameObject> targetingElements;
     private bool stop;
 
     private void Awake()
@@ -22,23 +22,23 @@ public class InspectTower : MonoBehaviour
     void Start()
     {
         clickedTower = null;
+        foreach (GameObject g in targetingElements) g.SetActive(false);
     }
 
     void Update()
     {
-        if (stop || EnemySpawner.doneSpawning) return;
+        if (stop || EnemySpawner.doneSpawning)
+        {
+            DisableComponents();
+            return;
+        }
         range.SetActive(clickedTower);
         ClickedTower = clickedTower;
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (hoveredTower) clickedTower = hoveredTower;
-            else
-            {
-                clickedTower = null;
-                range.SetActive(false);
-                foreach (TextMeshProUGUI t in panelTexts) t.text = "";
-            }
+            if (hoveredTower) EnableComponents();
+            else if (!HoverUI.hoveringUI) DisableComponents();
         }
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -46,16 +46,26 @@ public class InspectTower : MonoBehaviour
         if (Physics.Raycast(ray, out hit) && hit.collider.GetComponentInParent<TowerShoot>()) hoveredTower = hit.collider.GetComponentInParent<TowerShoot>();
         else hoveredTower = null;
 
-        
+        if (clickedTower) panelTexts[1].text = "Damage: " + clickedTower.TotalDamage;
 
-        if (clickedTower)
-        {
-            range.transform.localScale = new(clickedTower.Range * 2, range.transform.localScale.y, clickedTower.Range * 2);
-            range.transform.position = clickedTower.transform.position;
-            panelTexts[0].text = clickedTower.name.Substring(0, clickedTower.name.Length - 7);
-            panelTexts[1].text = "Damage: " + clickedTower.TotalDamage;
-        }
     }
 
     public void OnDeath() => stop = true;
+
+    public void EnableComponents()
+    {
+        if (hoveredTower.TargetEnemiesOrAttackInRadius) foreach (GameObject g in targetingElements) g.SetActive(true);
+        clickedTower = hoveredTower;
+        range.transform.localScale = new(clickedTower.Range * 2, range.transform.localScale.y, clickedTower.Range * 2);
+        range.transform.position = clickedTower.transform.position;
+        panelTexts[0].text = clickedTower.name.Substring(0, clickedTower.name.Length - 7);
+    }
+
+    public void DisableComponents()
+    {
+        clickedTower = null;
+        range.SetActive(false);
+        foreach (GameObject g in targetingElements) g.SetActive(false);
+        foreach (TextMeshProUGUI t in panelTexts) t.text = "";
+    }
 }

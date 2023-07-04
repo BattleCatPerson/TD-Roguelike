@@ -7,6 +7,7 @@ public class HoverUI : MonoBehaviour
 {
     [SerializeField] GraphicRaycaster raycaster;
     public static TowerButton hoveredTower;
+    public static bool hoveringUI;
     void Start()
     {
         raycaster = GetComponent<GraphicRaycaster>();
@@ -19,6 +20,7 @@ public class HoverUI : MonoBehaviour
         p.position = Input.mousePosition;
         List<RaycastResult> r = new();
         raycaster.Raycast(p, r);
+        hoveringUI = r.Count > 0;
         foreach (RaycastResult result in r)
         {
             if (result.gameObject.TryGetComponent<TowerButton>(out TowerButton t))
