@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.ProBuilder.Shapes;
 using TMPro;
+using Unity.VisualScripting;
+
 public class InspectTower : MonoBehaviour
 {
     public static TowerShoot clickedTower;
@@ -46,7 +48,12 @@ public class InspectTower : MonoBehaviour
         if (Physics.Raycast(ray, out hit) && hit.collider.GetComponentInParent<TowerShoot>()) hoveredTower = hit.collider.GetComponentInParent<TowerShoot>();
         else hoveredTower = null;
 
-        if (clickedTower) panelTexts[1].text = "Damage: " + clickedTower.TotalDamage;
+        if (clickedTower)
+        {
+            targetingElements[0].GetComponent<TextMeshProUGUI>().text = "Targeting: " + clickedTower.target;
+            panelTexts[1].text = "Damage: " + clickedTower.TotalDamage;
+
+        }
 
     }
 

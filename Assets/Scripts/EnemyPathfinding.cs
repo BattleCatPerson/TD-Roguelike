@@ -17,7 +17,7 @@ public class EnemyPathfinding : MonoBehaviour
 
     [SerializeField] float healthRemoved;
 
-    public float DistanceTraveled { get { return distanceTraveled; } }
+    public float DistanceTraveled => distanceTraveled;
 
 
     [SerializeField] int rank = 1;

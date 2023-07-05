@@ -4,7 +4,6 @@ using UnityEngine;
 using System;
 public enum Targeting
 {
-    None = 0,
     First = 1,
     Last = 2,
     Strong = 3,
@@ -12,7 +11,7 @@ public enum Targeting
 }
 public class TowerShoot : MonoBehaviour
 {
-   
+
     [SerializeField] GameObject projectile;
     [SerializeField] float range;
     public float Range => range;
@@ -30,6 +29,7 @@ public class TowerShoot : MonoBehaviour
     public List<Transform> EnemyList => enemyList;
 
     [SerializeField] Transform targetedEnemy;
+    public Transform potentialEnemy;
     public Transform TargetedEnemy => targetedEnemy;
 
     [Header("Order: Wood, Stone, Iron, Gold (add more later)")]
@@ -52,7 +52,7 @@ public class TowerShoot : MonoBehaviour
     [SerializeField] float totalDamage;
     public float TotalDamage { get { return totalDamage; } set { totalDamage = value; } }
 
-    public Targeting target = Targeting.None;
+    public Targeting target = Targeting.First;
     private void Awake()
     {
         HealthManager.onDeath += OnDeath;
@@ -65,6 +65,8 @@ public class TowerShoot : MonoBehaviour
 
     void Update()
     {
+        if (GetComponent<TowerProjectile>()) target = GetComponent<TowerProjectile>().parent.target;
+
         if (stop || SpawnTower.instance.BuildPhase) return;
         enemyList.Clear();
         foreach (Transform t in EnemyPathfinding.enemies)
@@ -78,6 +80,14 @@ public class TowerShoot : MonoBehaviour
         {
             if (waiting || attackWaiting) return;
             StartCoroutine(WaitAndShoot(attackDelay));
+        }
+
+        if (enemyList.Count > 0)
+        {
+            if (target == Targeting.First) targetedEnemy = ReturnFurthestEnemy();
+            else if (target == Targeting.Last) targetedEnemy = ReturnLastEnemy();
+            else if (target == Targeting.Strong) targetedEnemy = ReturnStrongestEnemy();
+            else targetedEnemy = ReturnClosestEnemy();
         }
     }
 
@@ -159,6 +169,7 @@ public class TowerShoot : MonoBehaviour
         return close;
     }
 
+
     public void SpawnProjectile()
     {
         foreach (Transform spawnPoint in spawnPoints)
@@ -184,20 +195,14 @@ public class TowerShoot : MonoBehaviour
         attackWaiting = false;
         currentFireTime = fireRate;
     }
-    
+
     public void OnDeath() => stop = true;
 
     public void TargetedShoot()
     {
         if (enemyList.Count > 0)
         {
-            Vector3 targetedEnemy = new();
-            if (target == Targeting.First || target == Targeting.None) targetedEnemy = ReturnFurthestEnemy().position;
-            else if (target == Targeting.Last) targetedEnemy = ReturnLastEnemy().position;
-            else if (target == Targeting.Strong) targetedEnemy = ReturnStrongestEnemy().position;
-            else targetedEnemy = ReturnClosestEnemy().position;
-
-            if (nozzle) nozzle.LookAt(new Vector3(targetedEnemy.x, transform.position.y, targetedEnemy.z));
+            if (nozzle) nozzle.LookAt(new Vector3(targetedEnemy.position.x, transform.position.y, targetedEnemy.position.z));
             if (currentFireTime <= 0 && !attackWaiting)
             {
                 if (attackAmount <= 1) SpawnProjectile();
@@ -205,6 +210,29 @@ public class TowerShoot : MonoBehaviour
                 currentFireTime = fireRate;
             }
         }
+
+        //if (EnemyPathfinding.enemies.Count == 0) return;
+
+        //Transform t;
+        //if (target == Targeting.First) t = ReturnFurthestEnemy();
+        //else if (target == Targeting.Last) t = ReturnLastEnemy();
+        //else if (target == Targeting.Strong) t = ReturnStrongestEnemy();
+        //else t = ReturnClosestEnemy();
+
+        //potentialEnemy = t;
+
+        //Vector3 targetedEnemy = t.position;
+        //if (enemyList.Contains(t))
+        //{
+        //    if (nozzle) nozzle.LookAt(new Vector3(targetedEnemy.x, transform.position.y, targetedEnemy.z));
+        //    if (currentFireTime <= 0 && !attackWaiting)
+        //    {
+        //        if (attackAmount <= 1) SpawnProjectile();
+        //        else StartCoroutine(SpawnProjectileDelayed());
+        //        currentFireTime = fireRate;
+        //    }
+        //}
+
     }
 
     public void ShootInRadius()

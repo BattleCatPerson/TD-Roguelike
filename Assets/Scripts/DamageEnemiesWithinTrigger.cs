@@ -14,6 +14,7 @@ public class DamageEnemiesWithinTrigger : MonoBehaviour
     [SerializeField] float currentTimeInterval;
     private void Start()
     {
+        TowerProjectile.activeProjectiles.Add(gameObject);
         Destroy(gameObject, lifeTime);
         currentTimeInterval = 0;
     }
@@ -50,5 +51,10 @@ public class DamageEnemiesWithinTrigger : MonoBehaviour
             currentTimeInterval = timeInterval;
         }
         else currentTimeInterval -= Time.deltaTime;
+    }
+
+    private void OnDestroy()
+    {
+        TowerProjectile.activeProjectiles.Remove(gameObject);
     }
 }

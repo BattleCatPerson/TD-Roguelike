@@ -84,5 +84,6 @@ public class EnemySpawner : MonoBehaviour
     public void LoadScene()
     {
         SceneManager.LoadScene(mapScene);
+        foreach (GameObject g in TowerProjectile.activeProjectiles) Destroy(g);
     }
 }

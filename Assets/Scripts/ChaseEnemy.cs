@@ -22,7 +22,7 @@ public class ChaseEnemy : MonoBehaviour
 
     void Update()
     {
-        target = EnemyPathfinding.enemies.Count > 0 ? EnemyPathfinding.enemies[0] : null;
+        target = GetComponent<TowerProjectile>().parent.EnemyList.Count > 0 ? GetComponent<TowerProjectile>().parent.TargetedEnemy : null;
         if (target)
         {
             distance = Vector3.Distance(transform.position, target.position);

@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class TowerProjectile : MonoBehaviour
 {
+    public static List<GameObject> activeProjectiles = new();
+
     [SerializeField] float damage;
     public float Damage => damage;
     [SerializeField] float lifetime;
@@ -18,6 +20,7 @@ public class TowerProjectile : MonoBehaviour
     int collisionCounter;
     private void Start()
     {
+        activeProjectiles.Add(gameObject);
         collisionCounter = 0;
         Destroy(gameObject, lifetime);
     }
@@ -41,7 +44,11 @@ public class TowerProjectile : MonoBehaviour
 
     public void SetDamage(float d) => damage = d;
 
-    private void OnDestroy() => onDestroy?.Invoke();
+    private void OnDestroy()
+    {
+        onDestroy?.Invoke();
+        activeProjectiles.Remove(gameObject);
+    }
 
     public void DealDamage(EnemyHealth e)
     {

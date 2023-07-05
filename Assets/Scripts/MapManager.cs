@@ -34,21 +34,6 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
-
-        //if (row + 1 < rows.Count)
-        //{
-        //    availableButtons.Add(rows[row + 1].buttons[col * 2]);
-        //    availableButtons.Add(rows[row + 1].buttons[col * 2 + 1]);
-        //}
-        
-        //foreach (TreeRow row in rows)
-        //{
-        //    foreach (Button button in row.buttons)
-        //    {
-        //        if (!availableButtons.Contains(button)) button.interactable = false;
-        //    }
-        //}
-
         if (Rounds <= rounds)
         {
             for (int i = 0; i < options; i++)
