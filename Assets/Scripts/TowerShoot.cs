@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+
 public enum Targeting
 {
     First = 1,
@@ -9,6 +10,14 @@ public enum Targeting
     Strong = 3,
     Close = 4
 }
+
+public enum ShootingType
+{
+    Target = 1,
+    Radius = 2,
+    Tile = 3
+}
+
 public class TowerShoot : MonoBehaviour
 {
 
@@ -39,8 +48,9 @@ public class TowerShoot : MonoBehaviour
     public List<float> ResourceCostsAfterBuildPhase => resourceCostsAfterBuildPhase;
 
     [SerializeField] bool stop;
-    [SerializeField] bool targetEnemiesOrAttackInRadius = true;
-    public bool TargetEnemiesOrAttackInRadius => targetEnemiesOrAttackInRadius;
+
+    [SerializeField] ShootingType shootType;
+    public ShootingType ShootType => shootType;
 
     [SerializeField] float attackDelay;
     bool waiting;
@@ -53,14 +63,24 @@ public class TowerShoot : MonoBehaviour
     public float TotalDamage { get { return totalDamage; } set { totalDamage = value; } }
 
     public Targeting target = Targeting.First;
+
+    [Header("This is for the wall tower only")]
+    public List<Transform> takenTiles;
+    public List<Transform> availableTiles;
+
     private void Awake()
     {
         HealthManager.onDeath += OnDeath;
         element = GetComponent<TowerElement>();
+        takenTiles = new();
     }
     void Start()
     {
         currentFireTime = 0f;
+        if (shootType == ShootingType.Tile)
+        {
+            foreach (Transform t in CarvePath.Path) if (Vector3.Distance(new Vector3(t.position.x, transform.position.y, t.position.z), transform.position) <= range && !takenTiles.Contains(t)) availableTiles.Add(t);
+        }
     }
 
     void Update()
@@ -71,14 +91,14 @@ public class TowerShoot : MonoBehaviour
         enemyList.Clear();
         foreach (Transform t in EnemyPathfinding.enemies)
         {
-            if (Vector3.Distance(transform.position, t.position) <= range && !enemyList.Contains(t)) enemyList.Add(t);
-            else if (Vector3.Distance(transform.position, t.position) > range && enemyList.Contains(t)) enemyList.Remove(t);
+            if (Vector3.Distance(transform.position, new Vector3(t.position.x, transform.position.y, t.position.z)) <= range && !enemyList.Contains(t)) enemyList.Add(t);
+            else if (Vector3.Distance(transform.position, new Vector3(t.position.x, transform.position.y, t.position.z)) > range && enemyList.Contains(t)) enemyList.Remove(t);
         }
 
         if (currentFireTime > 0) currentFireTime -= Time.deltaTime;
-        if (currentFireTime <= 0 && enemyList.Count > 0)
+        if (currentFireTime <= 0 && (enemyList.Count > 0 && shootType != ShootingType.Tile || shootType == ShootingType.Tile && !EnemySpawner.doneSpawning))
         {
-            if (waiting || attackWaiting) return;
+            if (waiting || attackWaiting || (shootType == ShootingType.Tile && availableTiles.Count == takenTiles.Count )) return;
             StartCoroutine(WaitAndShoot(attackDelay));
         }
 
@@ -210,29 +230,6 @@ public class TowerShoot : MonoBehaviour
                 currentFireTime = fireRate;
             }
         }
-
-        //if (EnemyPathfinding.enemies.Count == 0) return;
-
-        //Transform t;
-        //if (target == Targeting.First) t = ReturnFurthestEnemy();
-        //else if (target == Targeting.Last) t = ReturnLastEnemy();
-        //else if (target == Targeting.Strong) t = ReturnStrongestEnemy();
-        //else t = ReturnClosestEnemy();
-
-        //potentialEnemy = t;
-
-        //Vector3 targetedEnemy = t.position;
-        //if (enemyList.Contains(t))
-        //{
-        //    if (nozzle) nozzle.LookAt(new Vector3(targetedEnemy.x, transform.position.y, targetedEnemy.z));
-        //    if (currentFireTime <= 0 && !attackWaiting)
-        //    {
-        //        if (attackAmount <= 1) SpawnProjectile();
-        //        else StartCoroutine(SpawnProjectileDelayed());
-        //        currentFireTime = fireRate;
-        //    }
-        //}
-
     }
 
     public void ShootInRadius()
@@ -241,6 +238,7 @@ public class TowerShoot : MonoBehaviour
         {
             foreach (Transform t in enemyList)
             {
+                if (t == null) continue;
                 EnemyHealth e = t.GetComponent<EnemyHealth>();
 
                 float damageModifier = damage;
@@ -254,6 +252,23 @@ public class TowerShoot : MonoBehaviour
         }
     }
 
+    public void ShootAtTile()
+    {
+        Debug.Log("shooting at tile");
+
+        if (availableTiles.Count == 0) return;
+        int index = UnityEngine.Random.Range(0, availableTiles.Count);
+        Transform selected = availableTiles[index];
+        if (nozzle) nozzle.LookAt(new Vector3(selected.position.x, transform.position.y, selected.position.z));
+
+        takenTiles.Add(selected);
+        TowerProjectile clone = Instantiate(projectile, new Vector3(selected.position.x, selected.position.y + 1, selected.position.z), selected.rotation).GetComponent<TowerProjectile>();
+        clone.SetHealth(damage);
+        clone.parent = this;
+        clone.tile = selected;
+        currentFireTime = fireRate;
+    }
+
     public IEnumerator Wait(float t)
     {
         attackWaiting = true;
@@ -263,11 +278,12 @@ public class TowerShoot : MonoBehaviour
 
     public IEnumerator WaitAndShoot(float t)
     {
-        OnShoot?.Invoke();
+        if (shootType != ShootingType.Tile || shootType == ShootingType.Tile && takenTiles.Count < availableTiles.Count) OnShoot?.Invoke();
         waiting = true;
         yield return new WaitForSeconds(t);
-        if (targetEnemiesOrAttackInRadius) TargetedShoot();
-        else ShootInRadius();
+        if (shootType == ShootingType.Target && targetedEnemy) TargetedShoot();
+        else if (shootType == ShootingType.Radius) ShootInRadius();
+        else if (shootType == ShootingType.Tile) ShootAtTile();
         waiting = false;
     }
 }

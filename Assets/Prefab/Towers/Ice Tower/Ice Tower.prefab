@@ -62,6 +62,7 @@ MonoBehaviour:
   nozzle: {fileID: 0}
   enemyList: []
   targetedEnemy: {fileID: 0}
+  potentialEnemy: {fileID: 0}
   resourceCosts:
   - 10
   - 10
@@ -73,9 +74,11 @@ MonoBehaviour:
   - 20
   - 0
   stop: 0
-  targetEnemiesOrAttackInRadius: 0
+  shootType: 2
   attackDelay: 0.5
   element: {fileID: 0}
+  totalDamage: 0
+  target: 1
 --- !u!114 &6598388577550176655
 MonoBehaviour:
   m_ObjectHideFlags: 0

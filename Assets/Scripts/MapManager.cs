@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
+
 public class MapManager : MonoBehaviour
 {
     public static int row = 0;
@@ -20,6 +22,8 @@ public class MapManager : MonoBehaviour
     [SerializeField] List<Button> buttons;
     [SerializeField] GameObject panel;
     [SerializeField] int options;
+
+    [SerializeField] TextMeshProUGUI roundText;
     private void Awake()
     {
         if (Rounds == -1) Rounds = 0;
@@ -34,14 +38,19 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
-        if (Rounds <= rounds)
+        if (Rounds < rounds)
         {
+            roundText.text = "Round " + (Rounds + 1) + "/" + rounds;
             for (int i = 0; i < options; i++)
             {
                 var b = buttons[Random.Range(0, buttons.Count)];
                 buttons.Remove(b);
                 Instantiate(b, panel.transform);
             }
+        }
+        else
+        {
+            roundText.text = "Complete";
         }
     }
     public void LoadBattleScene(Button b)

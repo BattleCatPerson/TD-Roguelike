@@ -52,7 +52,6 @@ public class InspectTower : MonoBehaviour
         {
             targetingElements[0].GetComponent<TextMeshProUGUI>().text = "Targeting: " + clickedTower.target;
             panelTexts[1].text = "Damage: " + clickedTower.TotalDamage;
-
         }
 
     }
@@ -61,7 +60,7 @@ public class InspectTower : MonoBehaviour
 
     public void EnableComponents()
     {
-        if (hoveredTower.TargetEnemiesOrAttackInRadius) foreach (GameObject g in targetingElements) g.SetActive(true);
+        if (hoveredTower.ShootType == ShootingType.Target) foreach (GameObject g in targetingElements) g.SetActive(true);
         clickedTower = hoveredTower;
         range.transform.localScale = new(clickedTower.Range * 2, range.transform.localScale.y, clickedTower.Range * 2);
         range.transform.position = clickedTower.transform.position;

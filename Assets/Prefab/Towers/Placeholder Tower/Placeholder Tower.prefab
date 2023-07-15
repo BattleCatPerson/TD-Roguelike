@@ -277,7 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 4192771096538248972, guid: 5dbc799a224d0bd468bed429416cbd84,
     type: 3}
-  range: 20
+  range: 3
   fireRate: 1
   projectileSpeed: 20
   damage: 10
@@ -288,6 +288,7 @@ MonoBehaviour:
   nozzle: {fileID: 5841885110435582231}
   enemyList: []
   targetedEnemy: {fileID: 0}
+  potentialEnemy: {fileID: 0}
   resourceCosts:
   - 10
   - 10
@@ -299,11 +300,12 @@ MonoBehaviour:
   - 0
   - 0
   stop: 0
-  targetEnemiesOrAttackInRadius: 1
+  shootType: 1
   attackDelay: 0
   element: {fileID: 0}
   totalDamage: 0
   target: 1
+  takenTiles: []
 --- !u!114 &4040654262044429489
 MonoBehaviour:
   m_ObjectHideFlags: 0

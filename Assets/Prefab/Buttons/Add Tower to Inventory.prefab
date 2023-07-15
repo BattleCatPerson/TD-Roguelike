@@ -78,8 +78,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9433962, g: 0.5369915, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -309,5 +309,6 @@ MonoBehaviour:
   - {fileID: 4117499834562203712, guid: 7002d8b5ff3924944b05994544f1afe2, type: 3}
   - {fileID: 4117499834562203712, guid: 231af5a0189d2894d879d7b8294b8801, type: 3}
   - {fileID: 4117499834562203712, guid: 39fb22cf3ad7942428c1e1865460e71d, type: 3}
+  - {fileID: 4117499834562203712, guid: 75ce105038e570f43aefd46c7afd0dde, type: 3}
   selectedTower: {fileID: 0}
   added: 0

@@ -5262,6 +5262,7 @@ MonoBehaviour:
   nozzle: {fileID: 0}
   enemyList: []
   targetedEnemy: {fileID: 0}
+  potentialEnemy: {fileID: 0}
   resourceCosts:
   - 10
   - 10
@@ -5273,9 +5274,13 @@ MonoBehaviour:
   - 10
   - 10
   stop: 0
-  targetEnemiesOrAttackInRadius: 0
+  shootType: 2
   attackDelay: 1
   element: {fileID: 0}
+  totalDamage: 0
+  target: 1
+  takenTiles: []
+  availableTiles: []
 --- !u!95 &2355662918430306904
 Animator:
   serializedVersion: 5
@@ -5426,7 +5431,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 308a8408e2596a640990ae069f4428fd, type: 2}
+      objectReference: {fileID: 2100000, guid: b9ebe32cd5b57dd47831cadef3b26d46, type: 2}
     - target: {fileID: 919132149155446097, guid: 2f4dfba027038674b8a072b829151b57,
         type: 3}
       propertyPath: m_Name

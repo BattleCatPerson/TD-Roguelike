@@ -19,6 +19,11 @@ public class CarvePath : MonoBehaviour
     [SerializeField] List<Transform> interestPoints;
     [SerializeField] Material gradient;
     [SerializeField] Material endGradient;
+
+
+    [Header("Obstacle Generation"),SerializeField] GameObject obstacle;
+    [SerializeField] int amountOfObstacles;
+    [SerializeField] float obstacleYOffset;
     private int size;
     void Awake()
     {
@@ -130,6 +135,23 @@ public class CarvePath : MonoBehaviour
 
         GeneratePath(current, destination);
         AssignColor();
+        PlaceObstacles();
+    }
 
+    public void PlaceObstacles()
+    {
+        for (int i = 0; i < amountOfObstacles; i++)
+        {
+            Vector2Int obstaclePoint = new(UnityEngine.Random.Range(1, size - 1), UnityEngine.Random.Range(1, size - 1));
+            TowerTile t = grid[obstaclePoint.x, obstaclePoint.y].GetComponent<TowerTile>();
+            while (!t.isEnabled)
+            {
+                obstaclePoint = new(UnityEngine.Random.Range(1, size - 1), UnityEngine.Random.Range(1, size - 1));
+                t = grid[obstaclePoint.x, obstaclePoint.y].GetComponent<TowerTile>();
+            }
+
+            t.isEnabled = false;
+            Instantiate(obstacle, new(t.transform.position.x, t.transform.position.y + obstacleYOffset, t.transform.position.z), t.transform.rotation);
+        }
     }
 }
